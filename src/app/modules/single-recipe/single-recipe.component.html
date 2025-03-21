@@ -1,0 +1,29 @@
+<div class="container mx-auto font-bold">
+    <div class="flex flex-wrap justify-center my-6">
+        <p class="text-4xl text-bold">{{recipe.name}}</p>
+    </div>
+    
+    <div class="flex flex-wrap justify-center mb-8">
+        <div class="me-2">Kuchnia:</div>
+        <div>
+            <app-tag [name]="recipe.cuisine"></app-tag>
+        </div>
+        <div class="ms-2">Dieta:</div>
+        <div *ngFor="let diet of recipe.diet">
+            <app-tag [name]="diet"></app-tag>
+        </div>
+        <div class="ms-2">Składniki:</div>
+        <div *ngFor="let ingredient of recipe.ingredients">
+            <app-tag [name]="ingredient"></app-tag>
+        </div>
+    </div>
+
+    <div class="flex items-center">
+        <div class="grid grid-cols-6">
+          <div class="col-span-5">{{recipe.recipe}}</div>
+          <img class="col-span-1 w-64 h-64 rounded" src="{{recipe.photo}}" alt="recipe image">
+        </div>
+        
+      </div>
+      
+</div>
