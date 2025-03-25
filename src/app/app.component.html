@@ -1,1 +1,30 @@
-<router-outlet></router-outlet>
+<div class="container">
+    <header>
+      <h1>NoCapCooking</h1>
+      <div class="warning">
+        <p>Uwaga! Wszystkie przepisy, obrazy i materiały audio zostały w 100% wygenerowane przez sztuczną inteligencję.</p>
+      </div>
+    </header>
+  
+    <div class="filters">
+      <!-- Add filter controls here -->
+      <div class="filter-group">
+        <h3>Kuchnie:</h3>
+        <button *ngFor="let cuisine of ['Włoska', 'Polska', 'Meksykańska']" 
+                (click)="updateFilter('cuisine', cuisine)">
+          {{cuisine}}
+        </button>
+      </div>
+      
+      <!-- Similar filter groups for diets and ingredients -->
+    </div>
+  
+    <div class="recipe-list">
+      <div *ngFor="let recipe of recipes" class="recipe-item">
+        <div class="recipe-content">
+          <h2>{{recipe.name}}</h2>
+          <p>Kuchnia: {{recipe.cuisine.name}}</p>
+          
+      </div>
+    </div>
+  </div>
