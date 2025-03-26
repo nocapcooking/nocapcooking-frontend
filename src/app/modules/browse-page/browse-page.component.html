@@ -1,3 +1,35 @@
+<mat-form-field class="full-width" appearance="fill">
+  <mat-label>Search for ingredients</mat-label>
+  <input 
+    type="text" 
+    matInput 
+    [formControl]="ingredientCtrl" 
+    [matAutocomplete]="auto"
+    placeholder="Type to search ingredients">
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="addIngredient($event.option.value)">
+    <mat-option *ngFor="let ingredient of filteredIngredients | async" [value]="ingredient">
+      {{ ingredient }}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
+
+<mat-chip-list>
+  <mat-chip *ngFor="let ingredient of selectedIngredients" [removable]="true" (removed)="removeIngredient(ingredient)">
+    {{ ingredient }}
+    <mat-icon matChipRemove>x</mat-icon>
+  </mat-chip>
+</mat-chip-list>
+
 <div *ngFor="let recipe of recipes">
   <app-single-recipe [recipe]="recipe"></app-single-recipe>
 </div>
+
+<mat-paginator
+    (page)="handlePageEvent($event)"
+    [length]="length"
+    [pageSize]="pageSize"
+    [showFirstLastButtons]="showFirstLastButtons"
+    [pageSizeOptions]="pageSizeOptions"
+    [pageIndex]="pageIndex"
+    aria-label="Select page">
+</mat-paginator>

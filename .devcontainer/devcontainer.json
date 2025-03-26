@@ -3,14 +3,14 @@
 {
 	"name": "Node.js & TypeScript",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/typescript-node:1-22-bookworm",
+	"image": "node:lts-bullseye",
 	"features": {
 		"ghcr.io/devcontainers/features/common-utils:2": {}
 	},
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "npm install -g @angular/cli@19.2.4 && npm install",
+	"postCreateCommand": "npm install -g @angular/cli@19.2.4 && npm install && npm i @angular/material",
 	// Configure tool-specific properties.
 	"customizations": {
 		"vscode": {

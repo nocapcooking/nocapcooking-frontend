@@ -9,7 +9,7 @@
             <app-tag [name]="recipe.cuisine"></app-tag>
         </div>
         <div class="ms-2">Dieta:</div>
-        <div *ngFor="let diet of recipe.diet">
+        <div *ngFor="let diet of recipe.diets">
             <app-tag [name]="diet"></app-tag>
         </div>
         <div class="ms-2">Składniki:</div>
@@ -21,7 +21,7 @@
     <div class="flex items-center">
         <div class="grid grid-cols-6">
           <div class="col-span-5">{{recipe.recipe}}</div>
-          <img class="col-span-1 w-64 h-64 rounded" src="{{recipe.photo}}" alt="recipe image">
+          <img class="col-span-1 w-64 h-64 rounded" src="{{recipe.image_path}}" alt="recipe image">
         </div>
         
       </div>

@@ -1,8 +1,9 @@
 export interface recipeDto{
     name: string;
     cuisine: string;
-    diet: string[];
+    diets: string[];
     ingredients: string[];
     recipe: string;
-    photo: string;
+    image_path: string;
+    audio_path: string;
 }
