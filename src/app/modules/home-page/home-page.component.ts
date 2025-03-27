@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,8 +14,9 @@ export class HomePageComponent {
   }
 
   redirect(){
-    console.log('di')
+    console.log('redicted from home page to browse page'); 
     this.router.navigate(['/browse']);
   }
+  welcomeMessage = signal('Welcome to home page of NoCapCooking');
 
 }
