@@ -4,17 +4,23 @@
     </div>
     
     <div class="flex flex-wrap justify-center mb-8">
-        <div class="me-2">Kuchnia:</div>
-        <div>
-            <app-tag [name]="recipe.cuisine"></app-tag>
+        <div class="w-full flex justify-left mb-2">
+            <div class="me-2">Kuchnia:</div>
+            <div>
+                <app-tag [name]="recipe.cuisine"></app-tag>
+            </div>
         </div>
-        <div class="ms-2">Dieta:</div>
-        <div *ngFor="let diet of recipe.diets">
-            <app-tag [name]="diet"></app-tag>
+        <div class="w-full flex justify-left mb-2">
+            <div class="me-2">Dieta:</div>
+            <div *ngFor="let diet of recipe.diets">
+                <app-tag [name]="diet"></app-tag>
+            </div>
         </div>
-        <div class="ms-2">Składniki:</div>
-        <div *ngFor="let ingredient of recipe.ingredients">
-            <app-tag [name]="ingredient"></app-tag>
+        <div class="w-full flex justify-left">
+            <div class="me-2">Składniki:</div>
+            <div *ngFor="let ingredient of recipe.ingredients">
+                <app-tag [name]="ingredient"></app-tag>
+            </div>
         </div>
     </div>
 

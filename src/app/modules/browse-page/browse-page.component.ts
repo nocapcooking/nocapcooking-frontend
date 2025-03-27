@@ -2,10 +2,11 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { recipeDto } from '../../models/recipe-dto';
 import { SingleRecipeComponent } from "../single-recipe/single-recipe.component";
 import { CommonModule } from '@angular/common';
-import { RecipeService } from '../../services/recipe.service';
+import { RecipeService, CuisineTag, DietTag } from '../../services/recipe.service';
 import { page } from '../../models/page';
+import { ApiResponse } from '../../models/api-response-general';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { map, Observable, startWith, debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
+import { map, Observable, debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -13,6 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatOptionModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -31,13 +33,27 @@ import { MatIconModule } from '@angular/material/icon';
     MatIconModule
   ],
   templateUrl: './browse-page.component.html',
-  styleUrl: './browse-page.component.css'
+  styleUrls: ['./browse-page.component.css']
 })
 export class BrowsePageComponent implements OnInit {
+
+
+  // Ingredients
   ingredientCtrl = new FormControl('');
-  filteredIngredients: Observable<string[]> = new Observable<string[]>();
+  filteredIngredients!: Observable<string[]>;
   selectedIngredients: string[] = [];
-  
+
+  // Cuisines
+  cuisineCtrl = new FormControl('');
+  filteredCuisines!: Observable<string[]>;
+  selectedCuisines: string[] = [];
+
+  // Diets
+  dietCtrl = new FormControl('');
+  filteredDiets!: Observable<string[]>;
+  selectedDiets: string[] = [];
+
+  // Recipes related
   recipes: recipeDto[] = [];
   length = 500;
   pageSize = 10;
@@ -45,18 +61,22 @@ export class BrowsePageComponent implements OnInit {
   pageSizeOptions = [5, 10, 25];
   showFirstLastButtons = true;
 
-  constructor(private recipeService: RecipeService) {}
+
+  constructor(private recipeService: RecipeService, private cuisineTag: CuisineTag, private dietTag: DietTag) { }
 
   ngOnInit() {
     this.setupIngredientSearch();
+    this.setupCuisineSearch();
+    this.setupDietSearch();
     this.getRecipes();
   }
 
+  // Ingredients
   private setupIngredientSearch() {
     this.filteredIngredients = this.ingredientCtrl.valueChanges.pipe(
-      debounceTime(300), // wait 300ms after each keystroke
-      distinctUntilChanged(), // ignore if same as previous value
-      switchMap(value => this.recipeService.getIngredients(value || '', 10,1))
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap(value => this.recipeService.getIngredients(value || '', 10, 1))
     );
   }
 
@@ -74,12 +94,66 @@ export class BrowsePageComponent implements OnInit {
     }
   }
 
+  // Cuisines
+
+
+
+  private setupCuisineSearch() {
+    this.filteredCuisines = this.cuisineCtrl.valueChanges.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap(value => this.cuisineTag.getCuisines(value || ''))
+    );
+  }
+
+  addCuisine(cuisine: string) {
+    if (!this.selectedCuisines.includes(cuisine)) {
+      this.selectedCuisines.push(cuisine);
+    }
+    this.cuisineCtrl.setValue('');
+  }
+
+  removeCuisine(cuisine: string) {
+    const index = this.selectedCuisines.indexOf(cuisine);
+    if (index >= 0) {
+      this.selectedCuisines.splice(index, 1);
+    }
+  }
+
+  // Diets
+
+  private setupDietSearch() {
+    this.filteredDiets = this.dietCtrl.valueChanges.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap(value => this.dietTag.getDiets(value || ''))
+    );
+  }
+
+  addDiet(diet: string) {
+    if (!this.selectedDiets.includes(diet)) {
+      this.selectedDiets.push(diet);
+    }
+    this.dietCtrl.setValue('');
+  }
+
+  removeDiet(diet: string) {
+    const index = this.selectedDiets.indexOf(diet);
+    if (index >= 0) {
+      this.selectedDiets.splice(index, 1);
+    }
+  }
+
+  // END of tags
+
   handlePageEvent(event: PageEvent) {
     this.length = event.length;
     this.pageSize = event.pageSize;
     this.pageIndex = event.pageIndex;
     this.getRecipes();
   }
+
+  // Getting recipes form ap
 
   getRecipes() {
     this.recipeService.getRecipes(this.pageIndex + 1, this.pageSize).subscribe({
@@ -88,6 +162,39 @@ export class BrowsePageComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error loading recipes:', err);
+      }
+    });
+  }
+  getFilteredRecipes() {
+    const hasIngredients = this.selectedIngredients && this.selectedIngredients.length > 0;
+    const hasCuisines = this.selectedCuisines && this.selectedCuisines.length > 0;
+    const hasDiets = this.selectedDiets && this.selectedDiets.length > 0;
+
+    if (!hasIngredients && !hasCuisines && !hasDiets) {
+      console.log('No filters selected, API call skipped.');
+      return;
+    }
+    const filter: any = {};
+
+    if (hasIngredients) {
+      filter.ingredient = this.selectedIngredients;
+    }
+    if (hasCuisines) {
+      filter.cuisine = this.selectedCuisines;
+    }
+    if (hasDiets) {
+      filter.diet = this.selectedDiets;
+    }
+
+    filter.page = this.pageIndex + 1;
+
+    this.recipeService.getFilteredRecipes(filter, filter.page, this.pageSize).subscribe({
+      next: (page: page<recipeDto>) => {
+        console.log('Filtered recipes response:', page);
+        this.recipes = page.results;
+      },
+      error: (err) => {
+        console.error('Error loading filtered recipes:', err);
       }
     });
   }
