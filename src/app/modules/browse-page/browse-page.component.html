@@ -1,99 +1,21 @@
-<!-- Ingredients Section -->
-<mat-form-field class="full-width" appearance="fill">
-  <mat-label>Wyszukiwanie składników</mat-label>
-  <input 
-    type="text" 
-    matInput 
-    [formControl]="ingredientCtrl" 
-    [matAutocomplete]="autoIngredients"
-    placeholder="Wpisz wyszukiwany składnik">
-  <mat-autocomplete #autoIngredients="matAutocomplete" (optionSelected)="addIngredient($event.option.value)">
-    <mat-option *ngFor="let ingredient of filteredIngredients | async" [value]="ingredient">
-      {{ ingredient }}
-    </mat-option>
-  </mat-autocomplete>
-</mat-form-field>
-
-<mat-chip-list>
-  <mat-chip 
-    *ngFor="let ingredient of selectedIngredients" 
-    [removable]="true" 
-    (removed)="removeIngredient(ingredient)">
-    {{ ingredient }}
-    <mat-icon matChipRemove>x</mat-icon>
-  </mat-chip>
-</mat-chip-list>
-
-<!-- Cuisine Section -->
-<mat-form-field class="full-width" appearance="fill">
-  <mat-label>Wyszukiwanie kuchni</mat-label>
-  <input 
-    type="text" 
-    matInput 
-    [formControl]="cuisineCtrl" 
-    [matAutocomplete]="autoCuisine"
-    placeholder="Wpisz wyszukiwaną kuchnię">
-  <mat-autocomplete #autoCuisine="matAutocomplete" (optionSelected)="addCuisine($event.option.value)">
-    <mat-option *ngFor="let cuisine of filteredCuisines | async" [value]="cuisine">
-      {{ cuisine }}
-    </mat-option>
-  </mat-autocomplete>
-</mat-form-field>
-
-<mat-chip-list>
-  <mat-chip 
-    *ngFor="let cuisine of selectedCuisines" 
-    [removable]="true" 
-    (removed)="removeCuisine(cuisine)">
-    {{ cuisine }}
-    <mat-icon matChipRemove>x</mat-icon>
-  </mat-chip>
-</mat-chip-list>
-
-<!-- Diet Section -->
-<mat-form-field class="full-width" appearance="fill">
-  <mat-label>Wyszukiwanie diet</mat-label>
-  <input 
-    type="text" 
-    matInput 
-    [formControl]="dietCtrl" 
-    [matAutocomplete]="autoDiet"
-    placeholder="Wpisz wyszukiwaną dietę">
-  <mat-autocomplete #autoDiet="matAutocomplete" (optionSelected)="addDiet($event.option.value)">
-    <mat-option *ngFor="let diet of filteredDiets | async" [value]="diet">
-      {{ diet }}
-    </mat-option>
-  </mat-autocomplete>
-</mat-form-field>
-
-<mat-chip-list>
-  <mat-chip 
-    *ngFor="let diet of selectedDiets" 
-    [removable]="true" 
-    (removed)="removeDiet(diet)">
-    {{ diet }}
-    <mat-icon matChipRemove>x</mat-icon>
-  </mat-chip>
-</mat-chip-list>
-
-
-<button mat-raised-button color="white" (click)="getFilteredRecipes()">
-  Filtruj według wybranych
-</button>
-
-<!-- Recipes view Section -->
-<div *ngFor="let recipe of recipes">
-  <app-single-recipe [recipe]="recipe"></app-single-recipe>
-</div>
+<table>
+  <tr>
+    <td class="flex align-top">
+      <side-nav (recipesFiltered)="displayFilteredRecipes($event)"></side-nav>
+    </td>
+    <td>
+      <!-- Recipes view Section -->
+      <div *ngFor="let recipe of recipes">
+        <app-single-recipe [recipe]="recipe"></app-single-recipe>
+      </div>
 
 
 
-<mat-paginator
-    (page)="handlePageEvent($event)"
-    [length]="length"
-    [pageSize]="pageSize"
-    [showFirstLastButtons]="showFirstLastButtons"
-    [pageSizeOptions]="pageSizeOptions"
-    [pageIndex]="pageIndex"
-    aria-label="Select page">
-</mat-paginator>
+      <mat-paginator (page)="handlePageEvent($event)" [length]="length" [pageSize]="pageSize"
+        [showFirstLastButtons]="showFirstLastButtons" [pageSizeOptions]="pageSizeOptions" [pageIndex]="pageIndex"
+        aria-label="Select page">
+      </mat-paginator>
+    </td>
+  </tr>
+
+</table>

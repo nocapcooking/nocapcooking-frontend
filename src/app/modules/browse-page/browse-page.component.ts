@@ -4,9 +4,9 @@ import { SingleRecipeComponent } from "../single-recipe/single-recipe.component"
 import { CommonModule } from '@angular/common';
 import { RecipeService, CuisineTag, DietTag } from '../../services/recipe.service';
 import { page } from '../../models/page';
-import { ApiResponse } from '../../models/api-response-general';
+
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { map, Observable, debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
+import { map, Observable, debounceTime, distinctUntilChanged, switchMap, filter } from 'rxjs';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -14,7 +14,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatOptionModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
-import { toSignal } from '@angular/core/rxjs-interop';
+
+import { SideNavComponent } from '../side-nav/side-nav.component';
+
+
 
 @Component({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -30,7 +33,8 @@ import { toSignal } from '@angular/core/rxjs-interop';
     MatInputModule,
     MatAutocompleteModule,
     ReactiveFormsModule,
-    MatIconModule
+    MatIconModule,
+    SideNavComponent
   ],
   templateUrl: './browse-page.component.html',
   styleUrls: ['./browse-page.component.css']
@@ -65,86 +69,11 @@ export class BrowsePageComponent implements OnInit {
   constructor(private recipeService: RecipeService, private cuisineTag: CuisineTag, private dietTag: DietTag) { }
 
   ngOnInit() {
-    this.setupIngredientSearch();
-    this.setupCuisineSearch();
-    this.setupDietSearch();
+
     this.getRecipes();
   }
 
-  // Ingredients
-  private setupIngredientSearch() {
-    this.filteredIngredients = this.ingredientCtrl.valueChanges.pipe(
-      debounceTime(300),
-      distinctUntilChanged(),
-      switchMap(value => this.recipeService.getIngredients(value || '', 10, 1))
-    );
-  }
 
-  addIngredient(ingredient: string) {
-    if (!this.selectedIngredients.includes(ingredient)) {
-      this.selectedIngredients.push(ingredient);
-    }
-    this.ingredientCtrl.setValue('');
-  }
-
-  removeIngredient(ingredient: string) {
-    const index = this.selectedIngredients.indexOf(ingredient);
-    if (index >= 0) {
-      this.selectedIngredients.splice(index, 1);
-    }
-  }
-
-  // Cuisines
-
-
-
-  private setupCuisineSearch() {
-    this.filteredCuisines = this.cuisineCtrl.valueChanges.pipe(
-      debounceTime(300),
-      distinctUntilChanged(),
-      switchMap(value => this.cuisineTag.getCuisines(value || ''))
-    );
-  }
-
-  addCuisine(cuisine: string) {
-    if (!this.selectedCuisines.includes(cuisine)) {
-      this.selectedCuisines.push(cuisine);
-    }
-    this.cuisineCtrl.setValue('');
-  }
-
-  removeCuisine(cuisine: string) {
-    const index = this.selectedCuisines.indexOf(cuisine);
-    if (index >= 0) {
-      this.selectedCuisines.splice(index, 1);
-    }
-  }
-
-  // Diets
-
-  private setupDietSearch() {
-    this.filteredDiets = this.dietCtrl.valueChanges.pipe(
-      debounceTime(300),
-      distinctUntilChanged(),
-      switchMap(value => this.dietTag.getDiets(value || ''))
-    );
-  }
-
-  addDiet(diet: string) {
-    if (!this.selectedDiets.includes(diet)) {
-      this.selectedDiets.push(diet);
-    }
-    this.dietCtrl.setValue('');
-  }
-
-  removeDiet(diet: string) {
-    const index = this.selectedDiets.indexOf(diet);
-    if (index >= 0) {
-      this.selectedDiets.splice(index, 1);
-    }
-  }
-
-  // END of tags
 
   handlePageEvent(event: PageEvent) {
     this.length = event.length;
@@ -154,6 +83,8 @@ export class BrowsePageComponent implements OnInit {
   }
 
   // Getting recipes form ap
+
+
 
   getRecipes() {
     this.recipeService.getRecipes(this.pageIndex + 1, this.pageSize).subscribe({
@@ -165,37 +96,9 @@ export class BrowsePageComponent implements OnInit {
       }
     });
   }
-  getFilteredRecipes() {
-    const hasIngredients = this.selectedIngredients && this.selectedIngredients.length > 0;
-    const hasCuisines = this.selectedCuisines && this.selectedCuisines.length > 0;
-    const hasDiets = this.selectedDiets && this.selectedDiets.length > 0;
-
-    if (!hasIngredients && !hasCuisines && !hasDiets) {
-      console.log('No filters selected, API call skipped.');
-      return;
-    }
-    const filter: any = {};
-
-    if (hasIngredients) {
-      filter.ingredient = this.selectedIngredients;
-    }
-    if (hasCuisines) {
-      filter.cuisine = this.selectedCuisines;
-    }
-    if (hasDiets) {
-      filter.diet = this.selectedDiets;
-    }
-
-    filter.page = this.pageIndex + 1;
-
-    this.recipeService.getFilteredRecipes(filter, filter.page, this.pageSize).subscribe({
-      next: (page: page<recipeDto>) => {
-        console.log('Filtered recipes response:', page);
-        this.recipes = page.results;
-      },
-      error: (err) => {
-        console.error('Error loading filtered recipes:', err);
-      }
-    });
+  displayFilteredRecipes(recipesFiltered: page<recipeDto>) {
+    this.recipes = recipesFiltered.results;
+  
   }
+
 }
