@@ -17,6 +17,6 @@ export class HomePageComponent {
     console.log('redicted from home page to browse page'); 
     this.router.navigate(['/browse']);
   }
-  welcomeMessage = signal('Welcome to home page of NoCapCooking');
+  welcomeMessage = signal('Welcome to the home page of NoCapCooking');
 
 }
