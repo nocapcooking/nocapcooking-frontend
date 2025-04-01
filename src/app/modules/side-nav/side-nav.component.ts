@@ -16,7 +16,7 @@ import { recipeDto } from "../../models/recipe-dto";
 })
 export class SideNavComponent {
   showFiller = false;
-  isExpanded = false;
+  isExpanded = true;
   @Output() recipesFiltered: EventEmitter<page<recipeDto>> = new EventEmitter<page<recipeDto>>();
   toggleDrawer() {
     this.isExpanded = !this.isExpanded;

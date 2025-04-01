@@ -11,13 +11,6 @@
         </mat-autocomplete>
     </mat-form-field>
 
-    <mat-chip-list class="py-1">
-        <mat-chip class="ml-2" *ngFor="let cuisine of selectedCuisines" [removable]="true"
-            (removed)="removeCuisine(cuisine)">
-            {{ cuisine }}
-            <mat-icon matChipRemove>x</mat-icon>
-        </mat-chip>
-    </mat-chip-list>
 </div>
 
 <div class="py-1">
@@ -33,12 +26,7 @@
         </mat-autocomplete>
     </mat-form-field>
 
-    <mat-chip-list class="py-1">
-        <mat-chip class="ml-2" *ngFor="let diet of selectedDiets" [removable]="true" (removed)="removeDiet(diet)">
-            {{ diet }}
-            <mat-icon matChipRemove>x</mat-icon>
-        </mat-chip>
-    </mat-chip-list>
+
 </div>
 <div class="py-1">
     <!-- Ingredients Section -->
@@ -53,19 +41,44 @@
         </mat-autocomplete>
     </mat-form-field>
 
-    <mat-chip-list class="py-1">
-        <mat-chip class="ml-2" *ngFor="let ingredient of selectedIngredients" [removable]="true"
-            (removed)="removeIngredient(ingredient)">
-            {{ ingredient }}
-            <mat-icon matChipRemove>x</mat-icon>
-        </mat-chip>
-    </mat-chip-list>
+   
 
 </div>
 
 
-<div class="px-6 mt-2">
-    <button mat-raised-button color="white" (click)="getFilteredRecipes()">
+<div class=" my-5">
+    <button mat-button color="white" class=" hover:bg-gray-700 px-4 py-2 rounded border-solid border-1 border-light-blue-500" (click)="getFilteredRecipes()">
         Filtruj według wybranych
     </button>
 </div>
+
+<mat-chip-list #chipGrid class="py-1 mt-5" aria-label="Selected Cuisines">
+    <mat-chip-row *ngFor="let cuisine of selectedCuisines" [removable]="true" (removed)="removeCuisine(cuisine)">
+      {{ cuisine }}
+      <button matChipRemove [attr.aria-label]="'Remove ' + cuisine">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-chip-row>
+</mat-chip-list>
+
+<hr class="my-6 me-6">
+
+<mat-chip-list #chipGrid class="py-1 mt-5" aria-label="Selected Diets">
+    <mat-chip-row *ngFor="let diet of selectedDiets" [removable]="true" (removed)="removeDiet(diet)">
+      {{ diet }}
+      <button matChipRemove [attr.aria-label]="'Remove ' + diet">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-chip-row>
+</mat-chip-list>
+
+<hr class="my-6">
+
+<mat-chip-list #chipGrid class="py-1 mt-5" aria-label="Selected Diets">
+    <mat-chip-row *ngFor="let ingredient of selectedIngredients" [removable]="true" (removed)="removeIngredient(ingredient)">
+      {{ ingredient }}
+      <button matChipRemove [attr.aria-label]="'Remove ' + ingredient">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-chip-row>
+</mat-chip-list>

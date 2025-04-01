@@ -30,6 +30,7 @@ import { page } from '../../models/page';
   templateUrl: './filter-tags.component.html',
   styleUrl: './filter-tags.component.css',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  
 })
 export class FilterTagComponent implements OnInit {
 

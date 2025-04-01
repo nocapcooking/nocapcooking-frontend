@@ -1,11 +1,7 @@
-<mat-drawer-container class="example-container" autosize [ngClass]="{'expand_toggle': isExpanded}">
+<mat-drawer-container class="example-container" autosize>
     <mat-drawer #drawer class="example-sidenav" mode="side" [opened]="isExpanded">
         <app-filter-tags (recipesFiltered)="displayFilteredRecipes($event)"></app-filter-tags>
     </mat-drawer>
 
-    <div class="example-sidenav-content">
-        <button type="button" mat-icon-button (click)="toggleDrawer()">
-            <mat-icon>{{isExpanded ? 'close' : 'menu'}}</mat-icon>
-        </button>
-    </div>
+    
 </mat-drawer-container>
