@@ -11,9 +11,15 @@
 
 
 
-      <mat-paginator (page)="handlePageEvent($event)" [length]="length" [pageSize]="pageSize"
-        [showFirstLastButtons]="showFirstLastButtons" [pageSizeOptions]="pageSizeOptions" [pageIndex]="pageIndex"
-        aria-label="Select page">
+      <mat-paginator 
+        (page)="handlePageEvent($event)" 
+        [length]="length" 
+        [pageSize]="pageSize"
+        [showFirstLastButtons]="showFirstLastButtons" 
+        [pageSizeOptions]="pageSizeOptions" 
+        [pageIndex]="pageIndex"
+        aria-label="Select page"
+        class="fixed bottom-0 left-0 w-full bg-black text-white shadow-md">
       </mat-paginator>
     </td>
   </tr>

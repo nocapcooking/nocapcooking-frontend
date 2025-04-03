@@ -26,7 +26,11 @@
 
     <div class="flex items-center">
         <div class="grid grid-cols-6">
-          <div class="col-span-4 text-l font-normal me-6">{{recipe.recipe}}</div>
+            <div class="col-span-4 text-l font-normal me-6 leading-loose">
+                <div  *ngFor="let sentence of recipe.recipe.split('.')">
+                    <li *ngIf="sentence.length > 0">{{ sentence.trim() }}</li>
+                </div>
+            </div>
           <img class="col-span-2 w-96 h-96 rounded" src="{{url + recipe.image_path}}" alt="recipe image">
         </div>
         

@@ -1,5 +1,5 @@
 .example-container {
-    width: 300px;
+    width: 310px;
     height: 100vh;
     margin-right: 50px;
   }
@@ -14,9 +14,4 @@
   
   .example-sidenav {
     padding: 20px;
-  }
-  
-  .expand_toggle{
-    width: 500px;
-    height: 100vh;
   }

@@ -61,7 +61,7 @@ export class FilterTagComponent implements OnInit {
   pageIndex = 0;
   pageSizeOptions = [5, 10, 25];
   showFirstLastButtons = true;
-
+  saveCooldown = false;
 
   constructor(private recipeService: RecipeService, private cuisineTag: CuisineTag, private dietTag: DietTag) { }
 
@@ -151,8 +151,23 @@ export class FilterTagComponent implements OnInit {
 
 
   saveFilters() {
+    if (this.saveCooldown) {
+      return;
+    }
+    this.saveCooldown = true;
+    setTimeout(() => {
+      this.saveCooldown = false;
+    }, 1000);
     this.filtersEmitter.emit(this.filters);
 
+  }
+
+  clearAllFilters(){
+    this.filters.ingredient = [];
+    this.filters.cuisine = [];
+    this.filters.diet = [];
+
+    this.filtersEmitter.emit(this.filters);
   }
     
 
