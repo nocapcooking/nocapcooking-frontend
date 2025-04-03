@@ -47,13 +47,13 @@
 
 
 <div class=" my-5">
-    <button mat-button color="white" class=" hover:bg-gray-700 px-4 py-2 rounded border-solid border-1 border-light-blue-500" (click)="getFilteredRecipes()">
+    <button mat-button color="white" class=" hover:bg-gray-700 px-4 py-2 rounded border-solid border-1 border-light-blue-500" (click)="saveFilters()">
         Filtruj według wybranych
     </button>
 </div>
 
 <mat-chip-list #chipGrid class="py-1 mt-5" aria-label="Selected Cuisines">
-    <mat-chip-row *ngFor="let cuisine of selectedCuisines" [removable]="true" (removed)="removeCuisine(cuisine)">
+    <mat-chip-row *ngFor="let cuisine of filters.cuisine" [removable]="true" (removed)="removeCuisine(cuisine)">
       {{ cuisine }}
       <button matChipRemove [attr.aria-label]="'Remove ' + cuisine">
         <mat-icon>cancel</mat-icon>
@@ -61,10 +61,11 @@
     </mat-chip-row>
 </mat-chip-list>
 
-<hr class="my-6 me-6">
+<hr class="my-6 me-6" *ngIf="(filters.cuisine.length > 0 && filters.ingredient.length > 0) ||
+    (filters.diet.length > 0 && filters.cuisine.length > 0)"> 
 
 <mat-chip-list #chipGrid class="py-1 mt-5" aria-label="Selected Diets">
-    <mat-chip-row *ngFor="let diet of selectedDiets" [removable]="true" (removed)="removeDiet(diet)">
+    <mat-chip-row *ngFor="let diet of filters.diet" [removable]="true" (removed)="removeDiet(diet)">
       {{ diet }}
       <button matChipRemove [attr.aria-label]="'Remove ' + diet">
         <mat-icon>cancel</mat-icon>
@@ -72,10 +73,10 @@
     </mat-chip-row>
 </mat-chip-list>
 
-<hr class="my-6">
+<hr class="my-6" *ngIf="(filters.diet.length > 0 && filters.ingredient.length > 0)">
 
 <mat-chip-list #chipGrid class="py-1 mt-5" aria-label="Selected Diets">
-    <mat-chip-row *ngFor="let ingredient of selectedIngredients" [removable]="true" (removed)="removeIngredient(ingredient)">
+    <mat-chip-row *ngFor="let ingredient of filters.ingredient" [removable]="true" (removed)="removeIngredient(ingredient)">
       {{ ingredient }}
       <button matChipRemove [attr.aria-label]="'Remove ' + ingredient">
         <mat-icon>cancel</mat-icon>

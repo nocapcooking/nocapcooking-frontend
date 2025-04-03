@@ -6,7 +6,7 @@ import { RecipeService, CuisineTag, DietTag } from '../../services/recipe.servic
 import { page } from '../../models/page';
 
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { map, Observable, debounceTime, distinctUntilChanged, switchMap, filter } from 'rxjs';
+import { map, Observable, debounceTime, distinctUntilChanged, switchMap, filter, BehaviorSubject } from 'rxjs';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -16,6 +16,9 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 
 import { SideNavComponent } from '../side-nav/side-nav.component';
+import { Filter } from '../../models/filter';
+import { Tag } from '../../models/tag';
+import { Input } from 'postcss';
 
 
 
@@ -41,7 +44,14 @@ import { SideNavComponent } from '../side-nav/side-nav.component';
 })
 export class BrowsePageComponent implements OnInit {
 
+  
 
+  filters: Filter = {
+    ingredient: [],
+    cuisine: [],
+    diet: []
+  };
+  $filter = new BehaviorSubject<Filter>(this.filters);
   // Ingredients
   ingredientCtrl = new FormControl('');
   filteredIngredients!: Observable<string[]>;
@@ -62,7 +72,7 @@ export class BrowsePageComponent implements OnInit {
   length = 500;
   pageSize = 10;
   pageIndex = 0;
-  pageSizeOptions = [5, 10, 25];
+  pageSizeOptions = [5, 10];
   showFirstLastButtons = true;
 
 
@@ -71,6 +81,7 @@ export class BrowsePageComponent implements OnInit {
   ngOnInit() {
 
     this.getRecipes();
+    
   }
 
 
@@ -79,7 +90,12 @@ export class BrowsePageComponent implements OnInit {
     this.length = event.length;
     this.pageSize = event.pageSize;
     this.pageIndex = event.pageIndex;
-    this.getRecipes();
+    if(this.filters.ingredient.length > 0 || this.filters.cuisine.length > 0 || this.filters.diet.length > 0) {
+      this.getFilteredRecipes();
+    }
+    else {
+      this.getRecipes();
+    }
   }
 
   // Getting recipes form ap
@@ -96,9 +112,38 @@ export class BrowsePageComponent implements OnInit {
       }
     });
   }
-  displayFilteredRecipes(recipesFiltered: page<recipeDto>) {
-    this.recipes = recipesFiltered.results;
-  
+  saveFilters(filters: Filter) {
+    this.filters = filters;
+    this.pageSize = 10;
+    this.pageIndex = 0;
+    if(this.filters.ingredient.length > 0 || this.filters.cuisine.length > 0 || this.filters.diet.length > 0) {
+      this.getFilteredRecipes();
+    }
+    else {
+      this.getRecipes();
+    }
   }
 
+  getFilteredRecipes() {
+    this.recipeService.getFilteredRecipes(this.filters, this.pageIndex+1, this.pageSize).subscribe({
+      next: (page: page<recipeDto>) => {
+        this.recipes = page.results;
+      },
+      error: (err) => {
+        console.error('Error loading filtered recipes:', err);
+      }
+    });
+  }
+
+  addTag(event: Tag) {
+    if (event.type === 'ingredient' && !this.filters.ingredient.includes(event.name)) {
+      this.filters.ingredient.push(event.name);
+    } else if (event.type === 'cuisine' && !this.filters.cuisine.includes(event.name)) {
+      this.filters.cuisine.push(event.name);
+
+    } else if (event.type === 'diet' && !this.filters.diet.includes(event.name)) {
+      this.filters.diet.push(event.name);
+    }
+    this.$filter.next(this.filters);
+  }
 }

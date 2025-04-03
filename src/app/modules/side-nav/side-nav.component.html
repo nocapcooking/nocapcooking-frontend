@@ -1,6 +1,6 @@
 <mat-drawer-container class="example-container" autosize>
     <mat-drawer #drawer class="example-sidenav" mode="side" [opened]="isExpanded">
-        <app-filter-tags (recipesFiltered)="displayFilteredRecipes($event)"></app-filter-tags>
+        <app-filter-tags [filtersObservable]="filtersObservable" (filtersEmitter)="saveFilters($event)"></app-filter-tags>
     </mat-drawer>
 
     

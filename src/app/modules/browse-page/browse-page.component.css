@@ -1,3 +1,7 @@
 mat-autocomplete{
     background-color: white;
 }
+
+.mat-mdc-option.mdc-list-item {
+    background:#222222 !important;
+}

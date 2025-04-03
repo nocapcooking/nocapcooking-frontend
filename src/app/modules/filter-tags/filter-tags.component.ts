@@ -1,6 +1,6 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, EventEmitter, OnInit, Output, output } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, EventEmitter, Input, OnInit, Output, output } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, Observable, switchMap } from 'rxjs';
+import { BehaviorSubject, debounceTime, distinctUntilChanged, Observable, switchMap } from 'rxjs';
 import { CuisineTag, DietTag, RecipeService } from '../../services/recipe.service';
 import { recipeDto } from '../../models/recipe-dto';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -12,6 +12,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatOptionModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { page } from '../../models/page';
+import { Filter } from '../../models/filter';
 
 
 @Component({
@@ -34,22 +35,24 @@ import { page } from '../../models/page';
 })
 export class FilterTagComponent implements OnInit {
 
-
-  @Output() recipesFiltered: EventEmitter<page<recipeDto>> = new EventEmitter<page<recipeDto>>();
+  filters: Filter = {
+    ingredient: [],
+    cuisine: [],
+    diet: []
+  }
+  @Input() filtersObservable = new BehaviorSubject<Filter>({} as Filter).asObservable();
+  @Output() filtersEmitter: EventEmitter<Filter> = new EventEmitter<Filter>();
   // Ingredients
   ingredientCtrl = new FormControl('');
   filteredIngredients!: Observable<string[]>;
-  selectedIngredients: string[] = [];
 
   // Cuisines
   cuisineCtrl = new FormControl('');
   filteredCuisines!: Observable<string[]>;
-  selectedCuisines: string[] = [];
 
   // Diets
   dietCtrl = new FormControl('');
   filteredDiets!: Observable<string[]>;
-  selectedDiets: string[] = [];
 
   // Recipes related
   recipes: recipeDto[] = [];
@@ -63,6 +66,10 @@ export class FilterTagComponent implements OnInit {
   constructor(private recipeService: RecipeService, private cuisineTag: CuisineTag, private dietTag: DietTag) { }
 
   ngOnInit() {
+    this.filtersObservable.subscribe((filters: Filter) => {
+      this.filters = filters;
+    });
+  
     this.setupIngredientSearch();
     this.setupCuisineSearch();
     this.setupDietSearch();
@@ -78,16 +85,16 @@ export class FilterTagComponent implements OnInit {
   }
 
   addIngredient(ingredient: string) {
-    if (!this.selectedIngredients.includes(ingredient)) {
-      this.selectedIngredients.push(ingredient);
+    if (!this.filters.ingredient.includes(ingredient)) {
+      this.filters.ingredient.push(ingredient);
     }
     this.ingredientCtrl.setValue('');
   }
 
   removeIngredient(ingredient: string) {
-    const index = this.selectedIngredients.indexOf(ingredient);
+    const index = this.filters.ingredient.indexOf(ingredient);
     if (index >= 0) {
-      this.selectedIngredients.splice(index, 1);
+      this.filters.ingredient.splice(index, 1);
     }
   }
 
@@ -104,16 +111,16 @@ export class FilterTagComponent implements OnInit {
   }
 
   addCuisine(cuisine: string) {
-    if (!this.selectedCuisines.includes(cuisine)) {
-      this.selectedCuisines.push(cuisine);
+    if (!this.filters.cuisine.includes(cuisine)) {
+      this.filters.cuisine.push(cuisine);
     }
     this.cuisineCtrl.setValue('');
   }
 
   removeCuisine(cuisine: string) {
-    const index = this.selectedCuisines.indexOf(cuisine);
+    const index = this.filters.cuisine.indexOf(cuisine);
     if (index >= 0) {
-      this.selectedCuisines.splice(index, 1);
+      this.filters.cuisine.splice(index, 1);
     }
   }
 
@@ -128,55 +135,25 @@ export class FilterTagComponent implements OnInit {
   }
 
   addDiet(diet: string) {
-    if (!this.selectedDiets.includes(diet)) {
-      this.selectedDiets.push(diet);
+    if (!this.filters.diet.includes(diet)) {
+      this.filters.diet.push(diet);
     }
     this.dietCtrl.setValue('');
   }
 
   removeDiet(diet: string) {
-    const index = this.selectedDiets.indexOf(diet);
+    const index = this.filters.diet.indexOf(diet);
     if (index >= 0) {
-      this.selectedDiets.splice(index, 1);
+      this.filters.diet.splice(index, 1);
     }
   }
 
 
 
-  getFilteredRecipes() {
-    const hasIngredients = this.selectedIngredients && this.selectedIngredients.length > 0;
-    const hasCuisines = this.selectedCuisines && this.selectedCuisines.length > 0;
-    const hasDiets = this.selectedDiets && this.selectedDiets.length > 0;
+  saveFilters() {
+    this.filtersEmitter.emit(this.filters);
 
-    if (!hasIngredients && !hasCuisines && !hasDiets) {
-      console.log('No filters selected, API call skipped.');
-      return;
-    }
-    const filter: any = {};
-
-    if (hasIngredients) {
-      filter.ingredient = this.selectedIngredients;
-    }
-    if (hasCuisines) {
-      filter.cuisine = this.selectedCuisines;
-    }
-    if (hasDiets) {
-      filter.diet = this.selectedDiets;
-    }
-
-    filter.page = this.pageIndex + 1;
-
-    this.recipeService.getFilteredRecipes(filter, filter.page, this.pageSize).subscribe({
-      next: (page: page<recipeDto>) => {
-        this.recipesFiltered.emit(page);
-
-        console.log('Filtered recipes response:', page);
-        this.recipes = page.results;
-      },
-      error: (err) => {
-        console.error('Error loading filtered recipes:', err);
-      }
-    });
   }
+    
 
 }

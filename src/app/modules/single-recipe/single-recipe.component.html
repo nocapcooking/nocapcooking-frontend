@@ -7,19 +7,19 @@
         <div class="w-full flex justify-left mb-2">
             <div class="me-2">Kuchnia:</div>
             <div>
-                <app-tag [name]="recipe.cuisine"></app-tag>
+                <app-tag (addTag)="addTag($event)" [type]="'cuisine'" [name]="recipe.cuisine"></app-tag>
             </div>
         </div>
         <div class="w-full flex justify-left mb-2">
             <div class="me-2">Dieta:</div>
             <div *ngFor="let diet of recipe.diets">
-                <app-tag [name]="diet"></app-tag>
+                <app-tag (addTag)="addTag($event)" [type]="'diet'" [name]="diet"></app-tag>
             </div>
         </div>
         <div class="w-full flex justify-left">
             <div class="me-2">Składniki:</div>
             <div *ngFor="let ingredient of recipe.ingredients">
-                <app-tag [name]="ingredient"></app-tag>
+                <app-tag (addTag)="addTag($event)" [type]="'ingredient'" [name]="ingredient"></app-tag>
             </div>
         </div>
     </div>

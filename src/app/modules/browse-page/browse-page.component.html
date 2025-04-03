@@ -1,12 +1,12 @@
 <table>
   <tr>
     <td class="flex align-top">
-      <side-nav (recipesFiltered)="displayFilteredRecipes($event)"></side-nav>
+      <side-nav [filtersObservable]="$filter.asObservable()" (filtersEmmiter)="saveFilters($event)"></side-nav>
     </td>
     <td>
       <!-- Recipes view Section -->
       <div *ngFor="let recipe of recipes">
-        <app-single-recipe [recipe]="recipe"></app-single-recipe>
+        <app-single-recipe (tagEmitter)="addTag($event)" [recipe]="recipe"></app-single-recipe>
       </div>
 
 
