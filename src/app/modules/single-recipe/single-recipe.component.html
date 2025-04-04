@@ -31,9 +31,10 @@
                     <li *ngIf="sentence.length > 0">{{ sentence.trim() }}</li>
                 </div>
             </div>
-          <img class="col-span-2 w-96 h-96 rounded" src="{{url + recipe.image_path}}" alt="recipe image">
+          <img class="col-span-2 w-96 h-96 rounded" src="{{imgUrl + recipe.image_path}}" alt="recipe image">
         </div>
         
       </div>
+      <audio controls [src]="audioUrl + recipe.audio_path"></audio>
       
 </div>

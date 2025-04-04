@@ -13,7 +13,9 @@ export class TagComponent {
   @Input() type: string = '';
   @Output() addTag: EventEmitter<Tag> = new EventEmitter<Tag>();
   addFilter() {
-    console.log('addFilter', this.name, this.type);
+
     this.addTag.emit({ name: this.name, type: this.type });
   }
+
+
 }

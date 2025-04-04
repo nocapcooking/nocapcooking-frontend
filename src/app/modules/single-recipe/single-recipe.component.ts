@@ -12,7 +12,8 @@ import { Tag } from '../../models/tag';
   styleUrl: './single-recipe.component.css',
 })
 export class SingleRecipeComponent {
-  url = environment.MEDIA_URL;
+  imgUrl = environment.MEDIA_URL;
+  audioUrl = environment.AUDIO_URL;
   @Input() recipe: recipeDto = {} as recipeDto;
   @Output() tagEmitter: EventEmitter<Tag> = new EventEmitter<Tag>();
 

@@ -4,10 +4,13 @@
       <side-nav [filtersObservable]="$filter.asObservable()" (filtersEmmiter)="saveFilters($event)"></side-nav>
     </td>
     <td>
-      <!-- Recipes view Section -->
-      <div *ngFor="let recipe of recipes">
-        <app-single-recipe (tagEmitter)="addTag($event)" [recipe]="recipe"></app-single-recipe>
+      <div class="mb-24">
+        <!-- Recipes view Section -->
+        <div *ngFor="let recipe of recipes">
+          <app-single-recipe (tagEmitter)="addTag($event)" [recipe]="recipe"></app-single-recipe>
+        </div>
       </div>
+      
 
 
 
@@ -19,7 +22,7 @@
         [pageSizeOptions]="pageSizeOptions" 
         [pageIndex]="pageIndex"
         aria-label="Select page"
-        class="fixed bottom-0 left-0 w-full bg-black text-white shadow-md">
+        class="fixed bottom-0 left-0 w-full bg-black text-white shadow-md mt-8">
       </mat-paginator>
     </td>
   </tr>
