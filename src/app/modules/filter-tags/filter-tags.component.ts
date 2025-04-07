@@ -59,7 +59,7 @@ export class FilterTagComponent implements OnInit {
   length = 500;
   pageSize = 10;
   pageIndex = 0;
-  pageSizeOptions = [5, 10, 25];
+  pageSizeOptions = [5, 10];
   showFirstLastButtons = true;
   saveCooldown = false;
 

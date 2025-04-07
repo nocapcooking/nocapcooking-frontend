@@ -87,6 +87,7 @@ export class BrowsePageComponent implements OnInit {
 
 
   handlePageEvent(event: PageEvent) {
+    
     this.length = event.length;
     this.pageSize = event.pageSize;
     this.pageIndex = event.pageIndex;
@@ -98,7 +99,7 @@ export class BrowsePageComponent implements OnInit {
     }
   }
 
-  // Getting recipes form ap
+  // Getting recipes form app
 
 
 
@@ -106,6 +107,7 @@ export class BrowsePageComponent implements OnInit {
     this.recipeService.getRecipes(this.pageIndex + 1, this.pageSize).subscribe({
       next: (page: page<recipeDto>) => {
         this.recipes = page.results;
+        this.length = page.pagination.total;
       },
       error: (err) => {
         console.error('Error loading recipes:', err);
@@ -128,6 +130,7 @@ export class BrowsePageComponent implements OnInit {
     this.recipeService.getFilteredRecipes(this.filters, this.pageIndex+1, this.pageSize).subscribe({
       next: (page: page<recipeDto>) => {
         this.recipes = page.results;
+        this.length = page.pagination.total;
       },
       error: (err) => {
         console.error('Error loading filtered recipes:', err);
