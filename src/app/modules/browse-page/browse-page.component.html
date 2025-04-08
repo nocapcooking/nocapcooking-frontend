@@ -15,7 +15,7 @@
         <div *ngFor="let recipe of recipes">
           <app-single-recipe (tagEmitter)="addTag($event)" [recipe]="recipe"></app-single-recipe>
         </div>
-        <div class="flex justify-center text-xl font-bold wide">
+        <div *ngIf="recipes.length == 0" class="flex justify-center text-xl font-bold wide">
           Takich przepisów nie ma nawet w Ohio :/
         </div>
         
