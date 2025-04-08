@@ -92,7 +92,6 @@ export class BrowsePageComponent implements OnInit {
   ngOnInit() {
 
     this.getRecipes();
-    
   }
 
 
@@ -133,6 +132,7 @@ export class BrowsePageComponent implements OnInit {
     }
     else {
       this.getRecipes();
+
     }
   }
 

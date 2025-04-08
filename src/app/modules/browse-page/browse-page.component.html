@@ -6,15 +6,19 @@
 -->
 <table>
   <tr>
-    <td class="flex align-top">
+    <td class="flex align-top" [width]="'15%'">
       <side-nav [filtersObservable]="$filter.asObservable()" (filtersEmmiter)="saveFilters($event)"></side-nav>
     </td>
-    <td>
+    <td [width]="'85%'">
       <div class="mb-24">
         <!-- Recipes view Section -->
         <div *ngFor="let recipe of recipes">
           <app-single-recipe (tagEmitter)="addTag($event)" [recipe]="recipe"></app-single-recipe>
         </div>
+        <div class="flex justify-center text-xl font-bold wide">
+          Takich przepisów nie ma nawet w Ohio :/
+        </div>
+        
       </div>
       <mat-paginator 
         (page)="handlePageEvent($event)" 

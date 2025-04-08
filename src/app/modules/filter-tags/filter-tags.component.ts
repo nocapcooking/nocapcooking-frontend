@@ -187,7 +187,7 @@ export class FilterTagComponent implements OnInit {
     this.saveCooldown = true;
     setTimeout(() => {
       this.saveCooldown = false;
-    }, 1000);
+    }, 1500);
 
     const sortParam = this.sortAscending ? this.selectedSortField : '-' + this.selectedSortField;
     this.filters.orderBy = sortParam;
@@ -200,6 +200,13 @@ export class FilterTagComponent implements OnInit {
   // Resetowanie filtrów
 
   clearAllFilters(){
+    if (this.saveCooldown) {
+      return;
+    }
+    this.saveCooldown = true;
+    setTimeout(() => {
+      this.saveCooldown = false;
+    }, 1500);
     this.filters.ingredient = [];
     this.filters.cuisine = [];
     this.filters.diet = [];
