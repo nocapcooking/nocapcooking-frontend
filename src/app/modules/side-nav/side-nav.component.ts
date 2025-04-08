@@ -1,3 +1,13 @@
+/**
+ * @fileoverview Komponent panelu bocznego umożliwiający wybór filtrów.
+ * @module SideNavComponent
+ */
+/**
+ * @description Komponent panelu bocznego, umożliwiający wybór filtrów.
+ * @property {boolean} showFiller - Flaga do wyświetlania wypełniacza.
+ * @property {EventEmitter<Filter>} filtersEmmiter - Emiter wybranych filtrów.
+ * @property {Observable<Filter>} filtersObservable - Obserwowalne zmiany filtrów.
+ */
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatSidenavModule } from "@angular/material/sidenav";

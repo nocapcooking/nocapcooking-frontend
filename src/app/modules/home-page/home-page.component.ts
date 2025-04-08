@@ -1,3 +1,12 @@
+/**
+ * @fileoverview Komponent strony głównej.
+ * @module HomePageComponent
+ */
+/**
+ * @description Komponent strony głównej.
+ * @property {Router} router - Serwis do nawigacji.
+ * @property {signal} welcomeMessage - Wiadomość powitalna.
+ */
 import { Component, signal } from '@angular/core';
 import { Router } from '@angular/router';
 

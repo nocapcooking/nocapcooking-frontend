@@ -1,3 +1,15 @@
+/**
+ * @fileoverview Komponent wyświetlający pojedynczy przepis.
+ * @module SingleRecipeComponent
+ */
+
+/**
+ * @description Komponent wyświetlający pojedynczy przepis.
+ * @property {string} imgUrl - Bazowy URL do obrazów.
+ * @property {string} audioUrl - Bazowy URL do plików audio.
+ * @property {recipeDto} recipe - Dane przepisu.
+ * @property {EventEmitter<Tag>} tagEmitter - Emiter zdarzenia dodania tagu.
+ */
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { recipeDto } from '../../models/recipe-dto';
 import { TagComponent } from "../tag/tag.component";

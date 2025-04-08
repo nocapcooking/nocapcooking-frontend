@@ -1,17 +1,19 @@
+/*
+ * @fileoverview Style dla panelu bocznego (side-nav).
+ */
 .example-container {
     width: 310px;
     height: 100vh;
     margin-right: 50px;
-  }
+}
   
-  .example-sidenav-content {
+.example-sidenav-content {
     display: flex;
     height: 100%;
     align-items: center;
     justify-content: center;
-    
-  }
+}
   
-  .example-sidenav {
+.example-sidenav {
     padding: 20px;
-  }
+}

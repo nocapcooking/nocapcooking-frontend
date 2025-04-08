@@ -1,3 +1,9 @@
+<!--
+  @fileoverview Szablon HTML dla komponentu przeglądania przepisów.
+-->
+<!--
+  @description Szablon HTML dla komponentu przeglądania przepisów, zawierający listę przepisów oraz panel paginacji.
+-->
 <table>
   <tr>
     <td class="flex align-top">
@@ -10,10 +16,6 @@
           <app-single-recipe (tagEmitter)="addTag($event)" [recipe]="recipe"></app-single-recipe>
         </div>
       </div>
-      
-
-
-
       <mat-paginator 
         (page)="handlePageEvent($event)" 
         [length]="length" 
@@ -26,5 +28,4 @@
       </mat-paginator>
     </td>
   </tr>
-
 </table>

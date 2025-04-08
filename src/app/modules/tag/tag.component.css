@@ -1,3 +1,7 @@
+/*
+ * @fileoverview Style dla komponentu tag.
+ */
+/* @description Style dla komponentu tag */
 button:hover {
   cursor: pointer;
 }

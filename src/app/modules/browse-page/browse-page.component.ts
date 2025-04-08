@@ -1,3 +1,13 @@
+/**
+ * @fileoverview Komponent do przeglądania przepisów.
+ * @module BrowsePageComponent
+ */
+/**
+ * @description Komponent do przeglądania przepisów.
+ * @property {Filter} filters - Aktualnie wybrane filtry.
+ * @property {BehaviorSubject<Filter>} $filter - Obserwowalny strumień filtrów.
+ * @property {recipeDto[]} recipes - Lista wyświetlanych przepisów.
+ */
 import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { recipeDto } from '../../models/recipe-dto';
 import { SingleRecipeComponent } from "../single-recipe/single-recipe.component";

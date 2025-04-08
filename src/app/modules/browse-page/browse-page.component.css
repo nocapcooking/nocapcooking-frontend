@@ -1,3 +1,6 @@
+/*
+ * @fileoverview Style dla komponentu przeglądania przepisów.
+ */
 mat-autocomplete{
     background-color: white;
 }

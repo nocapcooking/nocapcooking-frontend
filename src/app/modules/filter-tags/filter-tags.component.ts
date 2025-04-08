@@ -1,3 +1,13 @@
+/**
+ * @fileoverview Komponent umożliwiający wyszukiwanie i filtrowanie przepisów.
+ * @module FilterTagComponent
+ */
+/**
+ * @description Komponent umożliwiający wyszukiwanie i filtrowanie przepisów.
+ * @property {FormControl} ingredientCtrl - Kontrolka wyszukiwania składników.
+ * @property {Observable<string[]>} filteredIngredients - Przefiltrowana lista składników.
+ * // ...dalsze właściwości opisane w kodzie...
+ */
 import { Component, CUSTOM_ELEMENTS_SCHEMA, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { BehaviorSubject, debounceTime, distinctUntilChanged, Observable, switchMap } from 'rxjs';
