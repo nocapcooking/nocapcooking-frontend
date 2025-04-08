@@ -49,7 +49,8 @@ export class BrowsePageComponent implements OnInit {
   filters: Filter = {
     ingredient: [],
     cuisine: [],
-    diet: []
+    diet: [],
+    orderBy: '',
   };
   $filter = new BehaviorSubject<Filter>(this.filters);
   // Ingredients

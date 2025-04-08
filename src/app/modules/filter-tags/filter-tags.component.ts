@@ -1,9 +1,9 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, EventEmitter, Input, OnInit, Output, output } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { BehaviorSubject, debounceTime, distinctUntilChanged, Observable, switchMap } from 'rxjs';
 import { CuisineTag, DietTag, RecipeService } from '../../services/recipe.service';
 import { recipeDto } from '../../models/recipe-dto';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
@@ -13,7 +13,9 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { page } from '../../models/page';
 import { Filter } from '../../models/filter';
-
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSelectChange, MatSelectModule } from '@angular/material/select';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-filter-tags',
@@ -27,21 +29,25 @@ import { Filter } from '../../models/filter';
     MatAutocompleteModule,
     ReactiveFormsModule,
     MatIconModule,
+    MatTooltipModule,
+    MatSelectModule,
   ],
   templateUrl: './filter-tags.component.html',
-  styleUrl: './filter-tags.component.css',
+  styleUrls: ['./filter-tags.component.css'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  
 })
 export class FilterTagComponent implements OnInit {
 
   filters: Filter = {
     ingredient: [],
     cuisine: [],
-    diet: []
-  }
+    diet: [],
+    orderBy: '',
+  };
+
   @Input() filtersObservable = new BehaviorSubject<Filter>({} as Filter).asObservable();
   @Output() filtersEmitter: EventEmitter<Filter> = new EventEmitter<Filter>();
+
   // Ingredients
   ingredientCtrl = new FormControl('');
   filteredIngredients!: Observable<string[]>;
@@ -54,7 +60,7 @@ export class FilterTagComponent implements OnInit {
   dietCtrl = new FormControl('');
   filteredDiets!: Observable<string[]>;
 
-  // Recipes related
+  // Recipes related (niezmienione)
   recipes: recipeDto[] = [];
   length = 500;
   pageSize = 10;
@@ -63,7 +69,25 @@ export class FilterTagComponent implements OnInit {
   showFirstLastButtons = true;
   saveCooldown = false;
 
-  constructor(private recipeService: RecipeService, private cuisineTag: CuisineTag, private dietTag: DietTag) { }
+  // Sortowanie
+  allowedOrderFields: string[] = ["", "name", "cuisine", "ingredients_count"];
+  selectedSortField: string = this.allowedOrderFields[0];
+  sortAscending: boolean = true; // true = ascending, false = descending
+
+    // Add aliases for display:
+    orderAliases: Record<string, string> = {
+      "": "Domyślnie",
+      "name": "Nazwa Przepisu",
+      "cuisine": "Kuchnia",
+      "ingredients_count": "Ilość składników"
+  };
+
+
+  constructor(
+    private recipeService: RecipeService,
+    private cuisineTag: CuisineTag,
+    private dietTag: DietTag
+  ) { }
 
   ngOnInit() {
     this.filtersObservable.subscribe((filters: Filter) => {
@@ -99,9 +123,6 @@ export class FilterTagComponent implements OnInit {
   }
 
   // Cuisines
-
-
-
   private setupCuisineSearch() {
     this.filteredCuisines = this.cuisineCtrl.valueChanges.pipe(
       debounceTime(300),
@@ -125,7 +146,6 @@ export class FilterTagComponent implements OnInit {
   }
 
   // Diets
-
   private setupDietSearch() {
     this.filteredDiets = this.dietCtrl.valueChanges.pipe(
       debounceTime(300),
@@ -149,7 +169,7 @@ export class FilterTagComponent implements OnInit {
   }
 
 
-
+  // Zapis filtrów
   saveFilters() {
     if (this.saveCooldown) {
       return;
@@ -158,17 +178,25 @@ export class FilterTagComponent implements OnInit {
     setTimeout(() => {
       this.saveCooldown = false;
     }, 1000);
-    this.filtersEmitter.emit(this.filters);
 
+    const sortParam = this.sortAscending ? this.selectedSortField : '-' + this.selectedSortField;
+    this.filters.orderBy = sortParam;
+
+    console.log('Wysyłamy zapytanie z filtrami:', this.filters);
+    this.filtersEmitter.emit(this.filters);
   }
+
+
+  // Resetowanie filtrów
 
   clearAllFilters(){
     this.filters.ingredient = [];
     this.filters.cuisine = [];
     this.filters.diet = [];
+    // Reset sortowania do ustawień domyślnych
+    this.selectedSortField = this.allowedOrderFields[0];
+    this.sortAscending = true;
 
     this.filtersEmitter.emit(this.filters);
   }
-    
-
 }

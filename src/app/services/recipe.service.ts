@@ -106,6 +106,13 @@ export class RecipeService {
       }
     });
 
+    // Add sorting parameters
+    ['name', 'cuisine', 'ingredients_count'].forEach(key => {
+      if (filters.orderBy === key) {
+        url += `&order_by=${key}`;
+      }
+    });
+
     // Add excludes
     ['exclude_cuisine', 'exclude_diet', 'exclude_ingredient'].forEach(key => {
       if (filters[key]) {
@@ -121,7 +128,7 @@ export class RecipeService {
     return this.http.get<page<recipeDto>>(url);
 
   }
-
+  
   getIngredients(search: string, per_page: number, page: number) {
     return this.http.get<page<string>>(`${environment.API_URL}/ingredients`, {
       params: {
