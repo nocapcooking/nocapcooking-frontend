@@ -71,7 +71,7 @@ export class BrowsePageComponent implements OnInit {
   // Recipes related
   recipes: recipeDto[] = [];
   length = 500;
-  pageSize = 10;
+  pageSize = 5;
   pageIndex = 0;
   pageSizeOptions = [5, 10];
   showFirstLastButtons = true;
@@ -117,7 +117,6 @@ export class BrowsePageComponent implements OnInit {
   }
   saveFilters(filters: Filter) {
     this.filters = filters;
-    this.pageSize = 10;
     this.pageIndex = 0;
     if(this.filters.ingredient.length > 0 || this.filters.cuisine.length > 0 || this.filters.diet.length > 0) {
       this.getFilteredRecipes();

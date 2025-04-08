@@ -63,7 +63,7 @@ export class FilterTagComponent implements OnInit {
   // Recipes related (niezmienione)
   recipes: recipeDto[] = [];
   length = 500;
-  pageSize = 10;
+  pageSize = 5;
   pageIndex = 0;
   pageSizeOptions = [5, 10];
   showFirstLastButtons = true;
@@ -104,7 +104,7 @@ export class FilterTagComponent implements OnInit {
     this.filteredIngredients = this.ingredientCtrl.valueChanges.pipe(
       debounceTime(300),
       distinctUntilChanged(),
-      switchMap(value => this.recipeService.getIngredients(value || '', 10, 1))
+      switchMap(value => this.recipeService.getIngredients(value || '', 5, 1))
     );
   }
 
