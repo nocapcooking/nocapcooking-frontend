@@ -1,110 +1,111 @@
-<!--
-  @fileoverview Szablon HTML dla komponentu filtrów, umożliwiający wyszukiwanie kuchni, diet i składników.
--->
-<div class="mt-4">
-    <!-- Cuisine Section -->
-    <mat-form-field class="full-width" appearance="fill">
-        <mat-label>Wyszukiwanie kuchni</mat-label>
-        <input type="text" matInput [formControl]="cuisineCtrl" [matAutocomplete]="autoCuisine"
-            placeholder="Wpisz wyszukiwaną kuchnię">
-        <mat-autocomplete #autoCuisine="matAutocomplete" (optionSelected)="addCuisine($event.option.value)">
-            <mat-option *ngFor="let cuisine of filteredCuisines | async" [value]="cuisine">
-                {{ cuisine }}
-            </mat-option>
-        </mat-autocomplete>
-    </mat-form-field>
-</div>
+<div class="fixed-panel">
 
-<div class="py-1">
-    <!-- Diet Section -->
-    <mat-form-field class="full-width" appearance="fill">
-        <mat-label>Wyszukiwanie diet</mat-label>
-        <input type="text" matInput [formControl]="dietCtrl" [matAutocomplete]="autoDiet"
-            placeholder="Wpisz wyszukiwaną dietę">
-        <mat-autocomplete #autoDiet="matAutocomplete" (optionSelected)="addDiet($event.option.value)">
-            <mat-option *ngFor="let diet of filteredDiets | async" [value]="diet">
-                {{ diet }}
-            </mat-option>
-        </mat-autocomplete>
-    </mat-form-field>
-</div>
 
-<div class="py-1">
-    <!-- Ingredients Section -->
-    <mat-form-field class="full-width" appearance="fill">
-        <mat-label>Wyszukiwanie składników</mat-label>
-        <input type="text" matInput [formControl]="ingredientCtrl" [matAutocomplete]="autoIngredients"
-            placeholder="Wpisz wyszukiwany składnik">
-        <mat-autocomplete #autoIngredients="matAutocomplete" (optionSelected)="addIngredient($event.option.value)">
-            <mat-option *ngFor="let ingredient of filteredIngredients | async" [value]="ingredient">
-                {{ ingredient }}
-            </mat-option>
-        </mat-autocomplete>
-    </mat-form-field>
-</div>
+    <div class="mt-4">
+        <!-- Cuisine Section -->
+        <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Wyszukiwanie kuchni</mat-label>
+            <input type="text" matInput [formControl]="cuisineCtrl" [matAutocomplete]="autoCuisine"
+                placeholder="Wpisz wyszukiwaną kuchnię">
+            <mat-autocomplete #autoCuisine="matAutocomplete" (optionSelected)="addCuisine($event.option.value)">
+                <mat-option *ngFor="let cuisine of filteredCuisines | async" [value]="cuisine">
+                    {{ cuisine }}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </div>
 
-<!-- Sortowanie -->
-<div class="sort-options my-5 flex items-center">
-    <mat-form-field appearance="fill">
-        <mat-label>Sortowanie</mat-label>
-        <mat-select [(value)]="selectedSortField">
-            <mat-option *ngFor="let field of allowedOrderFields" [value]="field">
-                {{ orderAliases[field] || field }}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-    <button mat-icon-button (click)="sortAscending = !sortAscending">
-        <mat-icon>
-            {{ sortAscending ? 'arrow_upward' : 'arrow_downward' }}
-        </mat-icon>
-    </button>
-</div>
+    <div class="py-1">
+        <!-- Diet Section -->
+        <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Wyszukiwanie diet</mat-label>
+            <input type="text" matInput [formControl]="dietCtrl" [matAutocomplete]="autoDiet"
+                placeholder="Wpisz wyszukiwaną dietę">
+            <mat-autocomplete #autoDiet="matAutocomplete" (optionSelected)="addDiet($event.option.value)">
+                <mat-option *ngFor="let diet of filteredDiets | async" [value]="diet">
+                    {{ diet }}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </div>
 
-<!-- Guziki -->
-<div class="my-5 flex align-center">
-    <button mat-button color="white"
-        class="hover:bg-gray-700 px-4 py-2 rounded border-solid border-1 border-light-blue-500"
-        (click)="saveFilters()">
-        Filtruj według wybranych
-    </button>
-    <button mat-button color="white"
-        class="hover:bg-gray-700 ms-2 px-4 rounded border-solid border-1 border-light-blue-500"
-        (click)="clearAllFilters()">
-        <mat-icon class="text-xs mt-2 flex align-bottom">clear</mat-icon>
-    </button>
-</div>
+    <div class="py-1">
+        <!-- Ingredients Section -->
+        <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Wyszukiwanie składników</mat-label>
+            <input type="text" matInput [formControl]="ingredientCtrl" [matAutocomplete]="autoIngredients"
+                placeholder="Wpisz wyszukiwany składnik">
+            <mat-autocomplete #autoIngredients="matAutocomplete" (optionSelected)="addIngredient($event.option.value)">
+                <mat-option *ngFor="let ingredient of filteredIngredients | async" [value]="ingredient">
+                    {{ ingredient }}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </div>
 
-<mat-chip-list #chipGrid class="py-1 mt-5 me-5 w-70 grid grid-cols-2 gap-2" aria-label="Selected Cuisines">
-    <mat-chip-row class="my-1 mx-1 text-xs" *ngFor="let cuisine of filters.cuisine" [removable]="true"
-        (removed)="removeCuisine(cuisine)">
-        {{ cuisine }}
-        <button matChipRemove [attr.aria-label]="'Remove ' + cuisine">
-            <mat-icon>cancel</mat-icon>
+    <!-- Sortowanie -->
+    <div class="sort-options my-5 flex items-center">
+        <mat-form-field appearance="fill">
+            <mat-label>Sortowanie</mat-label>
+            <mat-select [(value)]="selectedSortField">
+                <mat-option *ngFor="let field of allowedOrderFields" [value]="field">
+                    {{ orderAliases[field] || field }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button mat-icon-button (click)="sortAscending = !sortAscending">
+            <mat-icon>
+                {{ sortAscending ? 'arrow_upward' : 'arrow_downward' }}
+            </mat-icon>
         </button>
-    </mat-chip-row>
-</mat-chip-list>
+    </div>
 
-<hr class="my-6 me-6" *ngIf="(filters.cuisine.length > 0 && filters.ingredient.length > 0) ||
-    (filters.diet.length > 0 && filters.cuisine.length > 0)">
-
-<mat-chip-list #chipGrid class="py-1 mt-5 me-5 w-70 grid grid-cols-2 gap-2" aria-label="Selected Cuisines">
-    <mat-chip-row class="my-1 mx-1 text-xs" *ngFor="let diet of filters.diet" [removable]="true"
-        (removed)="removeDiet(diet)">
-        {{ diet }}
-        <button matChipRemove [attr.aria-label]="'Remove ' + diet">
-            <mat-icon>cancel</mat-icon>
+    <!-- Guziki -->
+    <div class="my-5 flex align-center">
+        <button mat-button color="white"
+            class="hover:bg-gray-700 px-4 py-2 rounded border-solid border-1 border-light-blue-500"
+            (click)="saveFilters()">
+            Filtruj według wybranych
         </button>
-    </mat-chip-row>
-</mat-chip-list>
-
-<hr class="my-6" *ngIf="(filters.diet.length > 0 && filters.ingredient.length > 0)">
-
-<mat-chip-list #chipGrid class="py-1 mt-5 me-5 w-70 grid grid-cols-2 gap-2" aria-label="Selected Cuisines">
-    <mat-chip-row class="my-1 mx-1 text-xs" *ngFor="let ingredient of filters.ingredient" [removable]="true"
-        (removed)="removeIngredient(ingredient)">
-        {{ ingredient }}
-        <button matChipRemove [attr.aria-label]="'Remove ' + ingredient">
-            <mat-icon>cancel</mat-icon>
+        <button mat-button color="white"
+            class="hover:bg-gray-700 ms-2 px-4 rounded border-solid border-1 border-light-blue-500"
+            (click)="clearAllFilters()">
+            <mat-icon class="text-xs mt-2 flex align-bottom">clear</mat-icon>
         </button>
-    </mat-chip-row>
-</mat-chip-list>
+    </div>
+
+    <mat-chip-list #chipGrid class="py-1 mt-5 me-5 w-70 grid grid-cols-2 gap-2" aria-label="Selected Cuisines">
+        <mat-chip-row class="my-1 mx-1 text-xs" *ngFor="let cuisine of filters.cuisine" [removable]="true"
+            (removed)="removeCuisine(cuisine)">
+            {{ cuisine }}
+            <button matChipRemove [attr.aria-label]="'Remove ' + cuisine">
+                <mat-icon>cancel</mat-icon>
+            </button>
+        </mat-chip-row>
+    </mat-chip-list>
+
+    <hr class="my-6 me-6" *ngIf="(filters.cuisine.length > 0 && filters.ingredient.length > 0) ||
+        (filters.diet.length > 0 && filters.cuisine.length > 0)">
+
+    <mat-chip-list #chipGrid class="py-1 mt-5 me-5 w-70 grid grid-cols-2 gap-2" aria-label="Selected Cuisines">
+        <mat-chip-row class="my-1 mx-1 text-xs" *ngFor="let diet of filters.diet" [removable]="true"
+            (removed)="removeDiet(diet)">
+            {{ diet }}
+            <button matChipRemove [attr.aria-label]="'Remove ' + diet">
+                <mat-icon>cancel</mat-icon>
+            </button>
+        </mat-chip-row>
+    </mat-chip-list>
+
+    <hr class="my-6" *ngIf="(filters.diet.length > 0 && filters.ingredient.length > 0)">
+
+    <mat-chip-list #chipGrid class="py-1 mt-5 me-5 w-70 grid grid-cols-2 gap-2" aria-label="Selected Cuisines">
+        <mat-chip-row class="my-1 mx-1 text-xs" *ngFor="let ingredient of filters.ingredient" [removable]="true"
+            (removed)="removeIngredient(ingredient)">
+            {{ ingredient }}
+            <button matChipRemove [attr.aria-label]="'Remove ' + ingredient">
+                <mat-icon>cancel</mat-icon>
+            </button>
+        </mat-chip-row>
+    </mat-chip-list>
+</div>

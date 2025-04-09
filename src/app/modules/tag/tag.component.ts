@@ -8,10 +8,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Tag } from '../../models/tag';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-tag',
-  imports: [CommonModule],
+  imports: [CommonModule, 
+  ],
   templateUrl: './tag.component.html',
   styleUrl: './tag.component.css'
 })
@@ -22,4 +26,6 @@ export class TagComponent {
   addFilter() {
     this.addTag.emit({ name: this.name, type: this.type });
   }
+
+ 
 }
