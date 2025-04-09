@@ -1,4 +1,95 @@
-/*
- * @fileoverview Style dla strony głównej.
- */
-/* @description Style dla strony głównej */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #1e1e1e;
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .container {
+    text-align: center;
+    padding: 80px 20px 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  header {
+    padding-bottom: 50px;
+  }
+  
+  header h1 {
+    color: goldenrod;
+    font-style: italic;
+    font-size: 3em;
+    margin: 0.2em 0;
+    font-weight: bold;
+  }
+  
+  header h2 {
+    font-size: 1.8em;
+    margin: 0;
+  }
+  
+  header p {
+    font-size: 1.4em;
+    margin-bottom: 30px;
+  }
+  
+  .main-button {
+    background-color: goldenrod;
+    color: black;
+    font-weight: bold;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    font-size: 1.2em;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .main-button:hover {
+    background-color: #b8860b;
+  }
+  
+  footer {
+    border-top: 1px solid #333;
+    width: 100%;
+    margin-top: 20px;
+    padding-top: 20px;
+    box-sizing: border-box;
+  }
+  
+  .footer-content {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: 14rem;
+    padding: 1rem 2rem;
+    text-align: left;
+    font-size: 25px;
+  }
+  
+  .footer-section {
+    flex: 1 1 200px;
+    min-width: 220px;
+  }
+  
+  .footer-section h3 {
+    color: goldenrod;
+    font-size: 1.3em;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  .footer-section p {
+    margin: 6px 0;
+  }
+  

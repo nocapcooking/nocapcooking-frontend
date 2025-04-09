@@ -1,11 +1,45 @@
-<!--
-  @fileoverview Szablon HTML dla strony głównej.
--->
-<!--
-  @description Szablon HTML dla strony głównej.
--->
-<div class="flex justify-center items-center pt-4">
-  <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded text-xl" (click)="redirect()">
-    {{welcomeMessage()}}
-  </button>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NoCapCooking</title>
+  <link rel="stylesheet" href="home-page.component.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h2>Witaj w</h2>
+      <h1><em>NoCapCooking</em></h1>
+      <p>Stronie z przepisami, obrazami i audio generowanymi przez AI</p>
+      <div class="flex justify-center items-center pt-4">
+        <button class="main-button" (click)="redirect()">
+          {{ welcomeMessage() }}
+        </button>
+      </div>
+    </header>
+
+    <footer>
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Autorzy</h3>
+          <p>Dawid Maliszewski</p>
+          <p>Amelia Posiadała</p>
+          <p>Adam Ropelewski</p>
+          <p>Dawid Rychlik</p>
+        </div>
+        <div class="footer-section">
+          <h3>Dokumentacja</h3>
+          <p>...</p>
+          <p>...</p>
+        </div>
+        <div class="footer-section">
+          <h3>CosJeszcze</h3>
+          <p>...</p>
+          <p>...</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
