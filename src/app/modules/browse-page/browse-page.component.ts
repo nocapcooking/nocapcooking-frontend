@@ -105,7 +105,7 @@ export class BrowsePageComponent implements OnInit {
       this.getFilteredRecipes();
     }
     else {
-      this.getRecipes();
+      this.getFilteredRecipes();
     }
   }
 
@@ -114,7 +114,7 @@ export class BrowsePageComponent implements OnInit {
 
 
   getRecipes() {
-    this.recipeService.getRecipes(this.pageIndex + 1, this.pageSize).subscribe({
+    this.recipeService.getFilteredRecipes(this.pageIndex + 1, this.pageSize, this.pageSize).subscribe({
       next: (page: page<recipeDto>) => {
         this.recipes = page.results;
         this.length = page.pagination.total;

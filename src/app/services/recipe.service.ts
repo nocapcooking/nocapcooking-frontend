@@ -85,7 +85,7 @@ export class RecipeService {
 
   constructor(private http: HttpClient) { }
   
-
+  // Deprecated: Use getFilteredRecipes instead
   getRecipes(page: number, per_page: number) {
     return this.http.get<page<recipeDto>>(`${environment.API_URL}/recipes/?page=${page}&per_page=${per_page}`);
   }
