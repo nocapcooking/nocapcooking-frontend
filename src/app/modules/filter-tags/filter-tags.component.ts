@@ -134,11 +134,19 @@ export class FilterTagComponent implements OnInit {
 
   // Cuisines
   private setupCuisineSearch() {
-    this.filteredCuisines = this.cuisineCtrl.valueChanges.pipe(
+    // Initial setup with empty search to load all cuisines
+    this.filteredCuisines = this.cuisineTag.getCuisines('');
+    
+    // Setup the valueChanges only for debouncing subsequent manual input
+    this.cuisineCtrl.valueChanges.pipe(
       debounceTime(300),
       distinctUntilChanged(),
-      switchMap(value => this.cuisineTag.getCuisines(value || ''))
-    );
+    ).subscribe(value => {
+      // Only update when there's actual input
+      if (value !== null) {
+        this.filteredCuisines = this.cuisineTag.getCuisines(value || '');
+      }
+    });
   }
 
   addCuisine(cuisine: string) {
