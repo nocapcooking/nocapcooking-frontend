@@ -127,13 +127,7 @@ export class BrowsePageComponent implements OnInit {
   saveFilters(filters: Filter) {
     this.filters = filters;
     this.pageIndex = 0;
-    if(this.filters.ingredient.length > 0 || this.filters.cuisine.length > 0 || this.filters.diet.length > 0) {
-      this.getFilteredRecipes();
-    }
-    else {
-      this.getRecipes();
-
-    }
+    this.getFilteredRecipes()
   }
 
   getFilteredRecipes() {

@@ -25,7 +25,7 @@ export interface Filter {
 	diet: string[];
 	/**
 	 * @property orderBy
-	 * @description Sposób sortowania wyników (np. według popularności, czasu przygotowania).
+	 * @description Sposób sortowania wyników (wg. Nazwy przepisu, nazwy kuchni, ilości składników).
 	 */
 	orderBy: string;
 }
