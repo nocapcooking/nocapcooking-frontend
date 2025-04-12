@@ -109,7 +109,7 @@ export class BrowsePageComponent implements OnInit {
   saveFilters(filters: Filter) {
     this.filters = filters;
     this.pageIndex = 0;
-    this.getFilteredRecipes();
+    this.getFilteredRecipes()
   }
 
   getFilteredRecipes() {

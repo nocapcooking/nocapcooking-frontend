@@ -10,7 +10,7 @@
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "npm install -g @angular/cli@19.2.4 && npm install && npm i @angular/material",
+	"postCreateCommand": "npm install -g @angular/cli@19.2.4 && npm install && npm i @angular/material  @ngx-translate/core @ngx-translate/http-loader",
 	// Configure tool-specific properties.
 	"customizations": {
 		"vscode": {

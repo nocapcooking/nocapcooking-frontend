@@ -85,12 +85,12 @@ export class FilterTagComponent implements OnInit {
   selectedSortField: string = this.allowedOrderFields[0];
   sortAscending: boolean = true; // true = ascending, false = descending
 
-    // Add aliases for display:
-    orderAliases: Record<string, string> = {
-      "": "Domyślnie",
-      "name": "Nazwa Przepisu",
-      "cuisine": "Kuchnia",
-      "ingredients_count": "Ilość składników"
+  // Add aliases for display:
+  orderAliases: Record<string, string> = {
+    "": "Domyślnie",
+    "name": "Nazwa Przepisu",
+    "cuisine": "Kuchnia",
+    "ingredients_count": "Ilość składników"
   };
 
 
@@ -104,7 +104,7 @@ export class FilterTagComponent implements OnInit {
     this.filtersObservable.subscribe((filters: Filter) => {
       this.filters = filters;
     });
-  
+
     this.setupIngredientSearch();
     this.setupCuisineSearch();
     this.setupDietSearch();
@@ -135,11 +135,19 @@ export class FilterTagComponent implements OnInit {
 
   // Cuisines
   private setupCuisineSearch() {
-    this.filteredCuisines = this.cuisineCtrl.valueChanges.pipe(
+    // Initial setup with empty search to load all cuisines
+    this.filteredCuisines = this.cuisineTag.getCuisines('');
+    
+    // Setup the valueChanges only for debouncing subsequent manual input
+    this.cuisineCtrl.valueChanges.pipe(
       debounceTime(300),
       distinctUntilChanged(),
-      switchMap(value => this.cuisineTag.getCuisines(value || ''))
-    );
+    ).subscribe(value => {
+      // Only update when there's actual input
+      if (value !== null) {
+        this.filteredCuisines = this.cuisineTag.getCuisines(value || '');
+      }
+    });
   }
 
   addCuisine(cuisine: string) {
@@ -158,11 +166,19 @@ export class FilterTagComponent implements OnInit {
 
   // Diets
   private setupDietSearch() {
-    this.filteredDiets = this.dietCtrl.valueChanges.pipe(
+    // Initial setup with empty search to load all diets
+    this.filteredDiets = this.dietTag.getDiets('');
+    
+    // Setup the valueChanges only for debouncing subsequent manual input
+    this.dietCtrl.valueChanges.pipe(
       debounceTime(300),
       distinctUntilChanged(),
-      switchMap(value => this.dietTag.getDiets(value || ''))
-    );
+    ).subscribe(value => {
+      // Only update when there's actual input
+      if (value !== null) {
+        this.filteredDiets = this.dietTag.getDiets(value || '');
+      }
+    });
   }
 
   addDiet(diet: string) {
@@ -202,6 +218,7 @@ export class FilterTagComponent implements OnInit {
     setTimeout(() => {
       this.clearButtonDisable = false;
     }, 1500);
+
     this.filters.ingredient = [];
     this.filters.cuisine = [];
     this.filters.diet = [];
