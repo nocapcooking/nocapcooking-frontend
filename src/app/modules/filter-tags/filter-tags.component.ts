@@ -77,7 +77,8 @@ export class FilterTagComponent implements OnInit {
   pageIndex = 0;
   pageSizeOptions = [5, 10];
   showFirstLastButtons = true;
-  saveCooldown = false;
+  filterButtonDisable = false;
+  clearButtonDisable = false;
 
   // Sortowanie
   allowedOrderFields: string[] = ["", "name", "cuisine", "ingredients_count"];
@@ -181,12 +182,9 @@ export class FilterTagComponent implements OnInit {
 
   // Zapis filtrów
   saveFilters() {
-    if (this.saveCooldown) {
-      return;
-    }
-    this.saveCooldown = true;
+    this.filterButtonDisable = true;
     setTimeout(() => {
-      this.saveCooldown = false;
+      this.filterButtonDisable = false;
     }, 1500);
 
     const sortParam = this.sortAscending ? this.selectedSortField : '-' + this.selectedSortField;
@@ -200,12 +198,9 @@ export class FilterTagComponent implements OnInit {
   // Resetowanie filtrów
 
   clearAllFilters(){
-    if (this.saveCooldown) {
-      return;
-    }
-    this.saveCooldown = true;
+    this.clearButtonDisable = true;
     setTimeout(() => {
-      this.saveCooldown = false;
+      this.clearButtonDisable = false;
     }, 1500);
     this.filters.ingredient = [];
     this.filters.cuisine = [];

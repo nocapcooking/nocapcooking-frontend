@@ -91,7 +91,7 @@ export class BrowsePageComponent implements OnInit {
 
   ngOnInit() {
 
-    this.getRecipes();
+    this.getFilteredRecipes();
   }
 
 
@@ -101,39 +101,15 @@ export class BrowsePageComponent implements OnInit {
     this.length = event.length;
     this.pageSize = event.pageSize;
     this.pageIndex = event.pageIndex;
-    if(this.filters.ingredient.length > 0 || this.filters.cuisine.length > 0 || this.filters.diet.length > 0) {
-      this.getFilteredRecipes();
-    }
-    else {
-      this.getRecipes();
-    }
+    this.getFilteredRecipes();
   }
 
   // Getting recipes form app
 
-
-
-  getRecipes() {
-    this.recipeService.getRecipes(this.pageIndex + 1, this.pageSize).subscribe({
-      next: (page: page<recipeDto>) => {
-        this.recipes = page.results;
-        this.length = page.pagination.total;
-      },
-      error: (err) => {
-        console.error('Error loading recipes:', err);
-      }
-    });
-  }
   saveFilters(filters: Filter) {
     this.filters = filters;
     this.pageIndex = 0;
-    if(this.filters.ingredient.length > 0 || this.filters.cuisine.length > 0 || this.filters.diet.length > 0) {
-      this.getFilteredRecipes();
-    }
-    else {
-      this.getRecipes();
-
-    }
+    this.getFilteredRecipes();
   }
 
   getFilteredRecipes() {
