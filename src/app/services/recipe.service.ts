@@ -107,7 +107,7 @@ export class RecipeService {
     });
 
     // Add sorting parameters
-    ['name', 'cuisine', 'ingredients_count'].forEach(key => {
+    ['name', 'cuisine', 'ingredients_count', '-name', '-cuisine', '-ingredients_count'].forEach(key => {
       if (filters.orderBy === key) {
         url += `&order_by=${key}`;
       }
