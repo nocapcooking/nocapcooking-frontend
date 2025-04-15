@@ -53,7 +53,7 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
-        <button mat-icon-button (click)="sortAscending = !sortAscending">
+        <button mat-icon-button (click)="sortAscending = !sortAscending" *ngIf="selectedSortField != ''">
             <mat-icon>
                 {{ sortAscending ? 'arrow_upward' : 'arrow_downward' }}
             </mat-icon>

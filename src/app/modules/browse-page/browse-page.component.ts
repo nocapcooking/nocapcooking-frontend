@@ -85,7 +85,7 @@ export class BrowsePageComponent implements OnInit {
   pageIndex = 0;
   pageSizeOptions = [5, 10];
   showFirstLastButtons = true;
-
+  paginationDisable = false;
 
   constructor(private recipeService: RecipeService, private cuisineTag: CuisineTag, private dietTag: DietTag) { }
 
@@ -97,7 +97,10 @@ export class BrowsePageComponent implements OnInit {
 
 
   handlePageEvent(event: PageEvent) {
-    
+    this.paginationDisable = true;
+    setTimeout(() => {
+      this.paginationDisable = false;
+    }, 1000);
     this.length = event.length;
     this.pageSize = event.pageSize;
     this.pageIndex = event.pageIndex;

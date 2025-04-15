@@ -23,6 +23,11 @@
 </div>
 <mat-paginator 
   (page)="handlePageEvent($event)" 
+  [ngClass]="{
+    'hover:bg-gray-700 cursor-pointer': !paginationDisable,
+    'opacity-50 cursor-not-allowed': paginationDisable
+  }"
+  [disabled]="paginationDisable"
   [length]="length" 
   [pageSize]="pageSize"
   [showFirstLastButtons]="showFirstLastButtons" 
