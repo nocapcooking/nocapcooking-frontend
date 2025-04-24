@@ -54,7 +54,7 @@ import { Input } from 'postcss';
 })
 export class BrowsePageComponent implements OnInit {
 
-  
+
 
   filters: Filter = {
     ingredient: [],
@@ -116,7 +116,7 @@ export class BrowsePageComponent implements OnInit {
   }
 
   getFilteredRecipes() {
-    this.recipeService.getFilteredRecipes(this.filters, this.pageIndex+1, this.pageSize).subscribe({
+    this.recipeService.getFilteredRecipes(this.filters, this.pageIndex + 1, this.pageSize).subscribe({
       next: (page: page<recipeDto>) => {
         this.recipes = page.results;
         this.length = page.pagination.total;

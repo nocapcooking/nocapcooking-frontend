@@ -18,12 +18,12 @@ import { Router } from '@angular/router';
 })
 export class HomePageComponent {
 
-  constructor(private router: Router){
-    
+  constructor(private router: Router) {
+
   }
 
-  redirect(){
-    console.log('redicted from home page to browse page'); 
+  redirect() {
+    console.log('redicted from home page to browse page');
     this.router.navigate(['/browse']);
   }
   welcomeMessage = signal('Idź do strony z przepisami');

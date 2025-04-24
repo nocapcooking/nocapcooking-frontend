@@ -1,63 +1,59 @@
 <div class="container mx-auto px-4 py-6 font-bold">
-    <!-- Title -->
-    <div class="flex justify-center my-6 text-center">
-      <p class="text-2xl md:text-4xl font-bold">{{ recipe.name }}</p>
+  <!-- Title -->
+  <div class="flex justify-center my-6 text-center">
+    <p class="text-2xl md:text-4xl font-bold">{{ recipe.name }}</p>
+  </div>
+
+  <!-- Meta Info: Cuisine, Diet, Ingredients -->
+  <div class="flex flex-col gap-4 mb-8">
+    <!-- Cuisine Tag Section -->
+    <div class="w-full flex items-center gap-2 flex-wrap">
+      <span class="me-2">Kuchnia:</span>
+      <app-tag (addTag)="addTag($event)" [type]="'cuisine'" [name]="recipe.cuisine"></app-tag>
     </div>
-  
-    <!-- Meta Info: Cuisine, Diet, Ingredients -->
-    <div class="flex flex-col gap-4 mb-8">
-      <!-- Cuisine Tag Section -->
-      <div class="w-full flex items-center gap-2 flex-wrap">
-        <span class="me-2">Kuchnia:</span>
-        <app-tag (addTag)="addTag($event)" [type]="'cuisine'" [name]="recipe.cuisine"></app-tag>
-      </div>
-  
-      <!-- Diet Tag Section -->
-      <div class="w-full flex items-center gap-2 flex-wrap">
-        <span class="me-2">Dieta:</span>
-        <ng-container *ngFor="let diet of recipe.diets">
-          <app-tag (addTag)="addTag($event)" [type]="'diet'" [name]="diet"></app-tag>
-        </ng-container>
-      </div>
-  
-      <!-- Ingredients Tag Section -->
-      <div class="w-full flex items-center gap-2 flex-wrap">
-        <span class="me-2">Składniki:</span>
-        <ng-container *ngFor="let ingredient of recipe.ingredients">
-          <app-tag (addTag)="addTag($event)" [type]="'ingredient'" [name]="ingredient"></app-tag>
-        </ng-container>
-      </div>
+
+    <!-- Diet Tag Section -->
+    <div class="w-full flex items-center gap-2 flex-wrap">
+      <span class="me-2">Dieta:</span>
+      <ng-container *ngFor="let diet of recipe.diets">
+        <app-tag (addTag)="addTag($event)" [type]="'diet'" [name]="diet"></app-tag>
+      </ng-container>
     </div>
-  
-    <!-- Content and Image -->
-    <div class="flex flex-col lg:flex-row gap-8 items-start">
-      <!-- Instructions -->
-      <div class="w-full lg:w-2/3 text-base font-normal leading-relaxed">
-        <ul class="list-disc list-inside space-y-2">
-          <ng-container *ngFor="let sentence of recipe.recipe.split('.')">
-            <li *ngIf="sentence.trim().length > 0">
-              {{ sentence.trim() }}
-            </li>
-          </ng-container>
-        </ul>
-      </div>
-  
-      <!-- Image -->
-      <div class="w-full lg:w-1/3 flex justify-center">
-        <img
-          class="w-full max-w-[400px] h-auto rounded object-contain"
-          [src]="encode(imgUrl + recipe.image_path)"
-          alt="recipe image"
-        />
-      </div>
-    </div>
-  
-    <!-- Audio Section -->
-    <div class="mt-6 flex items-center gap-4">
-      <button mat-icon-button *ngIf="!audioUnlocked" (click)="showAudio()">
-        <mat-icon>headphones</mat-icon>
-      </button>
-      <audio *ngIf="audioUnlocked" controls [src]="audioUrl + recipe.audio_path"></audio>
+
+    <!-- Ingredients Tag Section -->
+    <div class="w-full flex items-center gap-2 flex-wrap">
+      <span class="me-2">Składniki:</span>
+      <ng-container *ngFor="let ingredient of recipe.ingredients">
+        <app-tag (addTag)="addTag($event)" [type]="'ingredient'" [name]="ingredient"></app-tag>
+      </ng-container>
     </div>
   </div>
-  
+
+  <!-- Content and Image -->
+  <div class="flex flex-col lg:flex-row gap-8 items-start">
+    <!-- Instructions -->
+    <div class="w-full lg:w-2/3 text-base font-normal leading-relaxed">
+      <ul class="list-disc list-inside space-y-2">
+        <ng-container *ngFor="let sentence of recipe.recipe.split('.')">
+          <li *ngIf="sentence.trim().length > 0">
+            {{ sentence.trim() }}
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+
+    <!-- Image -->
+    <div class="w-full lg:w-1/3 flex justify-center">
+      <img class="w-full max-w-[400px] h-auto rounded object-contain" [src]="encode(imgUrl + recipe.image_path)"
+        alt="recipe image" />
+    </div>
+  </div>
+
+  <!-- Audio Section -->
+  <div class="mt-6 flex items-center gap-4">
+    <button mat-icon-button *ngIf="!audioUnlocked" (click)="showAudio()">
+      <mat-icon>headphones</mat-icon>
+    </button>
+    <audio *ngIf="audioUnlocked" controls [src]="audioUrl + recipe.audio_path"></audio>
+  </div>
+</div>

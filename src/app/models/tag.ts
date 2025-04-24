@@ -8,7 +8,7 @@
  * @property {string} name - Nazwa etykiety.
  * @property {string} type - Rodzaj etykiety.
  */
-export interface Tag{
+export interface Tag {
     name: string;
     type: string;
 }

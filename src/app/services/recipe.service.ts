@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { environment} from '../../environments/environment'; 
+import { environment } from '../../environments/environment';
 import { recipeDto } from '../models/recipe-dto';
 import { page } from '../models/page';
 import { map, Observable, of, tap } from 'rxjs';
@@ -12,7 +12,7 @@ import { ApiResponse } from '../models/api-response-general';
 export class CuisineTag {
   private cuisinesCache: string[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // Retrieves cuisines either from the API or from cache.
   getCuisines(search: string): Observable<string[]> {
@@ -35,7 +35,7 @@ export class CuisineTag {
   // Helper method to filter cuisines with search string.
   private filterCuisines(cuisines: string[], search: string): string[] {
     const lowerSearch = search.toLowerCase();
-    return cuisines.filter(cuisine => 
+    return cuisines.filter(cuisine =>
       cuisine.toLowerCase().includes(lowerSearch)
     );
   }
@@ -47,7 +47,7 @@ export class CuisineTag {
 export class DietTag {
   private dietsCache: string[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // Retrieves cuisines either from the API or from cache.
   getDiets(search: string): Observable<string[]> {
@@ -70,7 +70,7 @@ export class DietTag {
   // Helper method to filter cuisines with search string.
   private filterDiets(diets: string[], search: string): string[] {
     const lowerSearch = search.toLowerCase();
-    return diets.filter(diet => 
+    return diets.filter(diet =>
       diet.toLowerCase().includes(lowerSearch)
     );
   }
@@ -84,7 +84,7 @@ export class DietTag {
 export class RecipeService {
 
   constructor(private http: HttpClient) { }
-  
+
   // Deprecated: Use getFilteredRecipes instead
   getRecipes(page: number, per_page: number) {
     return this.http.get<page<recipeDto>>(`${environment.API_URL}/recipes/?page=${page}&per_page=${per_page}`);
@@ -93,10 +93,10 @@ export class RecipeService {
   getFilteredRecipes(filters: any, page: number, per_page: number) {
     // Start with base URL
     let url = `${environment.API_URL}/recipes/filter?`;
-    
+
     // Add pagination parameters
     url += `page=${page}&per_page=${per_page}`;
-    
+
     // Add filters
     ['cuisine', 'diet', 'ingredient'].forEach(key => {
       if (filters[key]) {
@@ -128,7 +128,7 @@ export class RecipeService {
     return this.http.get<page<recipeDto>>(url);
 
   }
-  
+
   getIngredients(search: string, per_page: number, page: number) {
     return this.http.get<page<string>>(`${environment.API_URL}/ingredients`, {
       params: {
@@ -140,8 +140,8 @@ export class RecipeService {
       map(response => response.results)
     );
   }
-  
 
-  
+
+
 
 }

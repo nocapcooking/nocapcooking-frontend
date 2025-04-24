@@ -137,7 +137,7 @@ export class FilterTagComponent implements OnInit {
   private setupCuisineSearch() {
     // Initial setup with empty search to load all cuisines
     this.filteredCuisines = this.cuisineTag.getCuisines('');
-    
+
     // Setup the valueChanges only for debouncing subsequent manual input
     this.cuisineCtrl.valueChanges.pipe(
       debounceTime(300),
@@ -168,7 +168,7 @@ export class FilterTagComponent implements OnInit {
   private setupDietSearch() {
     // Initial setup with empty search to load all diets
     this.filteredDiets = this.dietTag.getDiets('');
-    
+
     // Setup the valueChanges only for debouncing subsequent manual input
     this.dietCtrl.valueChanges.pipe(
       debounceTime(300),
@@ -213,7 +213,7 @@ export class FilterTagComponent implements OnInit {
 
   // Resetowanie filtrów
 
-  clearAllFilters(){
+  clearAllFilters() {
     this.clearButtonDisable = true;
     setTimeout(() => {
       this.clearButtonDisable = false;

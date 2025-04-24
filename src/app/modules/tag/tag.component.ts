@@ -14,7 +14,7 @@ import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-tag',
-  imports: [CommonModule, 
+  imports: [CommonModule,
   ],
   templateUrl: './tag.component.html',
   styleUrl: './tag.component.css'
@@ -27,5 +27,5 @@ export class TagComponent {
     this.addTag.emit({ name: this.name, type: this.type });
   }
 
- 
+
 }

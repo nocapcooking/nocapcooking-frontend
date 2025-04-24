@@ -26,8 +26,8 @@ import { BehaviorSubject } from "rxjs";
   styleUrl: 'side-nav.component.css',
   imports: [MatSidenavModule, MatButtonModule, MatIconModule, MatFormFieldModule, FilterTagComponent, CommonModule],
 })
-export class SideNavComponent implements OnInit  {
-  
+export class SideNavComponent implements OnInit {
+
   isMobile: boolean = false;
   isExpanded: boolean = true;
   showFiller = false;
@@ -51,7 +51,7 @@ export class SideNavComponent implements OnInit  {
   @Output() filtersEmmiter: EventEmitter<Filter> = new EventEmitter<Filter>();
   @Input() filtersObservable = new BehaviorSubject<Filter>({} as Filter).asObservable();
 
-  
+
 
   toggleDrawer() {
     this.isExpanded = !this.isExpanded;

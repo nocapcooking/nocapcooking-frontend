@@ -13,7 +13,7 @@
  * @property {string} image_path - Ścieżka do obrazu przepisu.
  * @property {string} audio_path - Ścieżka do pliku audio z przepisem.
  */
-export interface recipeDto{
+export interface recipeDto {
     name: string;
     cuisine: string;
     diets: string[];
