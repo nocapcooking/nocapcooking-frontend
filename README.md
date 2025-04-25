@@ -1,5 +1,4 @@
-<!-- @description Dokumentacja projektu NocapCooking. Zawiera instrukcje uruchamiania, kodowania oraz testowania aplikacji. -->
-# Nocapcooking
+# NoCapCooking
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.4.
 

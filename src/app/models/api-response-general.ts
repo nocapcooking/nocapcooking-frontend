@@ -1,4 +1,3 @@
-// filepath: /workspaces/NoCapCooking-frontend/src/app/models/api-response-general.ts
 /**
  * @module ApiResponseGeneral
  * @description Ogólny interfejs odpowiedzi API używany w całej aplikacji.

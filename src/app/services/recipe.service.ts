@@ -22,7 +22,7 @@ export class CuisineTag {
         this.filterCuisines(this.cuisinesCache, search)
       );
     } else {
-      return this.http.get<string[]>(`${environment.API_URL}/cuisines`).pipe(
+      return this.http.get<string[]>(`${environment.API_URL}/cuisines/`).pipe(
         tap((cuisines: string[]) => {
           // console.log('API Response:', cuisines);
           this.cuisinesCache = cuisines;
@@ -57,7 +57,7 @@ export class DietTag {
         this.filterDiets(this.dietsCache, search)
       );
     } else {
-      return this.http.get<string[]>(`${environment.API_URL}/diets`).pipe(
+      return this.http.get<string[]>(`${environment.API_URL}/diets/`).pipe(
         tap((cuisines: string[]) => {
           // console.log('API Response:', cuisines);
           this.dietsCache = cuisines;
@@ -92,7 +92,7 @@ export class RecipeService {
 
   getFilteredRecipes(filters: any, page: number, per_page: number) {
     // Start with base URL
-    let url = `${environment.API_URL}/recipes/filter?`;
+    let url = `${environment.API_URL}/recipes/filter/?`;
 
     // Add pagination parameters
     url += `page=${page}&per_page=${per_page}`;
@@ -130,7 +130,7 @@ export class RecipeService {
   }
 
   getIngredients(search: string, per_page: number, page: number) {
-    return this.http.get<page<string>>(`${environment.API_URL}/ingredients`, {
+    return this.http.get<page<string>>(`${environment.API_URL}/ingredients/`, {
       params: {
         search: search,
         per_page: per_page.toString(),
