@@ -117,6 +117,7 @@ export class BrowsePageComponent implements OnInit {
 
   getFilteredRecipes() {
     this.isLoading = true;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     this.recipeService.getFilteredRecipes(this.filters, this.pageIndex + 1, this.pageSize).subscribe({
       next: (page: page<recipeDto>) => {
         this.recipes = page.results;
