@@ -1,5 +1,5 @@
-<mat-drawer-container class="example-container" autosize *ngIf="isExpanded">
-  <mat-drawer #drawer class="example-sidenav" mode="side" [opened]="isExpanded">
+<mat-drawer-container class="example-container"  >
+  <mat-drawer #drawer class="example-sidenav" mode="side" [opened]="true">
     <app-filter-tags [filtersObservable]="filtersObservable" (filtersEmitter)="saveFilters($event)"></app-filter-tags>
   </mat-drawer>
 </mat-drawer-container>

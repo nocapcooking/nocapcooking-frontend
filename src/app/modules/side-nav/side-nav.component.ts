@@ -34,7 +34,7 @@ export class SideNavComponent implements OnInit {
 
   @HostListener('window:resize', [])
   onResize() {
-    this.isMobile = window.innerWidth < 768; // Set the breakpoint for mobile screens
+    this.isMobile = window.innerWidth < 1024; // Set the breakpoint for mobile screens
     // Automatically close the drawer when transitioning to mobile
     if (this.isMobile) {
       this.isExpanded = false;

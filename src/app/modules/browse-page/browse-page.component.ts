@@ -54,7 +54,7 @@ import { Input } from 'postcss';
 })
 export class BrowsePageComponent implements OnInit {
 
-
+  isLoading = false;
 
   filters: Filter = {
     ingredient: [],
@@ -116,13 +116,16 @@ export class BrowsePageComponent implements OnInit {
   }
 
   getFilteredRecipes() {
+    this.isLoading = true;
     this.recipeService.getFilteredRecipes(this.filters, this.pageIndex + 1, this.pageSize).subscribe({
       next: (page: page<recipeDto>) => {
         this.recipes = page.results;
         this.length = page.pagination.total;
+        this.isLoading = false;
       },
       error: (err) => {
         console.error('Error loading filtered recipes:', err);
+        this.isLoading = false;
       }
     });
   }
