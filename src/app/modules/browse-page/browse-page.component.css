@@ -4,13 +4,16 @@
 mat-autocomplete {
     background-color: white;
 }
-
-.mat-mdc-option.mdc-list-item {
+.mat-mdc-select-panel-above {
+    background: #222222 !important;
+  }
+.cdk-overlay-pane {
     background: #222222 !important;
 }
 
 mat-paginator {
     background-color: #222222 !important;
+    background: #222222 !important;
     margin-right: 15px !important;
     font-size: 1rem !important;
 }

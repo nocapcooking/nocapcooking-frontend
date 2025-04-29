@@ -9,3 +9,7 @@ button:hover {
 button {
   font-family: Roboto, sans-serif;
 }
+
+.tag-hover:hover {
+  background-color: rgb(183, 136, 19);
+}

@@ -13,6 +13,11 @@ mat-icon {
   width: 300px;
 }
 
+
+.button-hover:hover {
+  background-color: rgb(183, 136, 19);
+}
+
 @media (min-width: 1024px) {
   .fixed-panel {
     width: 320px;
