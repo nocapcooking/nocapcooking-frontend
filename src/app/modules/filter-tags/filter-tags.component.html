@@ -1,5 +1,5 @@
 <div class="fixed-panel">
-
+    <img src="NoCapCooking-Logo-2.jpg" alt="Logo" class=" rounded-4xl shadow-lg" />
 
     <div class="mt-4">
         <!-- Cuisine Section -->
@@ -65,14 +65,14 @@
         <button [disabled]="filterButtonDisable" mat-button color="white" [ngClass]="{
             'hover:bg-gray-700 cursor-pointer': !filterButtonDisable,
             'opacity-50 cursor-not-allowed': filterButtonDisable
-          }" class="px-4 py-2 rounded border border-light-blue-500" (click)="saveFilters()">
+          }" class="px-4 py-2 button-hover rounded border border-light-blue-500" (click)="saveFilters()">
             Filtruj według wybranych
         </button>
 
         <button [disabled]="clearButtonDisable" mat-button color="white" [ngClass]="{
             'hover:bg-gray-700 cursor-pointer': !clearButtonDisable,
             'opacity-50 cursor-not-allowed': clearButtonDisable
-          }" class="ms-2 px-4 rounded border border-light-blue-500" (click)="clearAllFilters()">
+          }" class="ms-2 px-4 button-hover rounded border border-light-blue-500" (click)="clearAllFilters()">
             <mat-icon class="text-xs mt-2 flex align-bottom">clear</mat-icon>
         </button>
     </div>
