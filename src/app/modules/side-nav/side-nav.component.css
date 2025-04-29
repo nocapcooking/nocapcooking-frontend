@@ -2,9 +2,13 @@
  * @fileoverview Style dla panelu bocznego (side-nav).
  */
 .example-container {
-    width: 310px;
-    height: 65vh; 
-    margin-right: 50px;
+    height: 65vh;
+}
+
+@media (min-width: 1024px) {
+    .example-container {
+        height: 100vh;
+    }
 }
 
 .example-sidenav-content {

@@ -6,6 +6,14 @@ body {
     color: rgb(255, 255, 255);
 }
 
-.mat-mdc-option {
+.mat-mdc-select-panel-above {
+    background: #222222 !important;
+}
+
+.mat-mdc-select-panel-above div :hover {
+    background: #353535 !important;
+}
+
+.mat-mdc-paginator-container {
     background: #222222 !important;
 }
