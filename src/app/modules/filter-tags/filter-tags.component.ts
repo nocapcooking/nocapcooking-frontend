@@ -26,6 +26,7 @@ import { Filter } from '../../models/filter';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-filter-tags',
@@ -97,7 +98,8 @@ export class FilterTagComponent implements OnInit {
   constructor(
     private recipeService: RecipeService,
     private cuisineTag: CuisineTag,
-    private dietTag: DietTag
+    private dietTag: DietTag,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -227,5 +229,10 @@ export class FilterTagComponent implements OnInit {
     this.sortAscending = true;
 
     this.filtersEmitter.emit(this.filters);
+  }
+
+  // Navigation
+  navigateToHome() {
+    this.router.navigate(['/']);
   }
 }
