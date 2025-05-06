@@ -1,3 +1,7 @@
+<!--
+  @fileoverview Szablon HTML dla komponentu przeglądania przepisów.
+  @description Template that displays the browse page with recipes list and sidebar filters.
+-->
 <div class="flex flex-col lg:flex-row">
   <!-- Sidebar -->
   <aside class="lg:w-1/4 w-full lg:sticky top-0 z-10">
@@ -11,7 +15,6 @@
     </div>
     <div class="mb-24" *ngIf="!isLoading">
       <!-- Recipes -->
-
       <div *ngFor="let recipe of recipes">
         <app-single-recipe (tagEmitter)="addTag($event)" [recipe]="recipe"></app-single-recipe>
       </div>
