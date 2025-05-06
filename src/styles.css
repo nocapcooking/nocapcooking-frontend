@@ -1,4 +1,8 @@
-/* You can add global styles to this file, and also import other style files */
+/*
+ * @fileoverview Global styles for the application.
+ * @description This file contains all global style definitions and imports.
+ */
+
 @import "tailwindcss";
 
 body {

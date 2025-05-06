@@ -168,3 +168,6 @@ dist
 
 # SvelteKit build / generate output
 .svelte-kit
+
+# Compodoc build output
+docs/

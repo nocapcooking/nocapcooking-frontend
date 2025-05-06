@@ -1,3 +1,7 @@
+<!--
+  @fileoverview Szablon HTML dla komponentu panelu bocznego.
+  @description Template for the side navigation panel used for selecting recipe filters.
+-->
 <mat-drawer-container class="example-container">
   <mat-drawer #drawer class="example-sidenav" mode="side" [opened]="true">
     <app-filter-tags [filtersObservable]="filtersObservable" (filtersEmitter)="saveFilters($event)"></app-filter-tags>
