@@ -1,59 +1,56 @@
-# NoCapCooking
+# NoCapCooking-frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.4.
+**NoCapCooking-frontend** to frontendowa aplikacja internetowa stworzona w Angularze (CLI v19.2.4), która wspiera użytkowników w planowaniu i przygotowywaniu posiłków. Projekt jest częścią systemu **NoCapCooking** — platformy kulinarnej umożliwiającej przeglądanie przepisów.
 
-## Development server
+## Wymagania
 
-To start a local development server, run:
+- Node.js (zalecana wersja: LTS)
+- Angular CLI w wersji co najmniej 19.2.4
 
-```bash
+## Uruchamianie serwera deweloperskiego
+
+Aby uruchomić lokalny serwer deweloperski, wykonaj polecenie:
+
+```
 ng serve
 ```
+Następnie otwórz przeglądarkę i przejdź pod adres ```http://localhost:4200```. Aplikacja automatycznie odświeży się po każdej zmianie w plikach źródłowych.
+Tworzenie komponentów i innych elementów
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Angular CLI umożliwia szybkie generowanie komponentów, usług, dyrektyw i innych elementów projektu. Przykładowo, aby wygenerować nowy komponent:
 
-## Code scaffolding
+```ng generate component nazwa-komponentu```
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Aby zobaczyć wszystkie dostępne schematy:
 
-```bash
-ng generate component component-name
-```
+```ng generate --help```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Budowanie aplikacji
 
-```bash
-ng generate --help
-```
+Aby zbudować aplikację (np. do wdrożenia na serwer produkcyjny), użyj:
 
-## Building
+```ng build```
 
-To build the project run:
+Wynikowa aplikacja znajdzie się w katalogu dist/. Domyślnie budowana jest wersja zoptymalizowana pod kątem wydajności i szybkości.
 
-```bash
-ng build
-```
+## Uruchamianie testów jednostkowych
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Aby uruchomić testy jednostkowe z wykorzystaniem Karma:
 
-## Running unit tests
+```ng test```
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## Uruchamianie testów end-to-end
 
-```bash
-ng test
-```
+Aby uruchomić testy end-to-end (E2E), użyj:
 
-## Running end-to-end tests
+```ng e2e```
 
-For end-to-end (e2e) testing, run:
+> Uwaga: Angular CLI nie dostarcza domyślnie frameworka E2E — możesz wybrać i skonfigurować taki, który odpowiada potrzebom projektu (np. Cypress, Playwright).
 
-```bash
-ng e2e
-```
+## Struktura projektu
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+```src/app``` – główny katalog aplikacji (komponenty, serwisy, moduły)
 
-## Additional Resources
+```src/assets``` – pliki statyczne (np. obrazy, style)
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```src/environments``` – konfiguracje środowiskowe (np. development, produkcja)
