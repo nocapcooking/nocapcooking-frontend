@@ -1,0 +1,37 @@
+<div class="bg-gray-100 text-white p-6 rounded-lg">
+    <h2 mat-dialog-title class="text-2xl text-white font-semibold mb-4">Ostrzeżenia prawne</h2>
+    <mat-dialog-content class="mat-typography space-y-4">
+      <section id="disclaimer">
+        <h2 class="text-xl font-bold mb-2">Zastrzeżenie prawne</h2>
+  
+        <p><strong>Podstawa prawna:</strong> Niniejsze zastrzeżenie zostało sporządzone zgodnie z przepisami Kodeksu cywilnego Rzeczypospolitej Polskiej (Dz.U. 1964 Nr 16 poz. 93, z późn. zm.), w szczególności art. 471 i nast. (odpowiedzialność kontraktowa i deliktowa) oraz zasadami wyłączenia odpowiedzialności za treści informacyjne i demonstracyjne.</p>
+  
+        <h3 class="text-lg font-semibold mt-4 mb-2">§1. Treści generowane przez sztuczną inteligencję</h3>
+        <ol class="list-decimal list-inside space-y-1">
+          <li>Wszystkie przepisy kulinarne, opisy, zdjęcia potraw, nagrania głosowe oraz inne materiały dostępne w aplikacji <strong>NoCapCooking-frontend</strong> zostały w całości lub częściowo wygenerowane przy użyciu systemów sztucznej inteligencji (AI).</li>
+          <li>Treści te mają charakter wyłącznie informacyjny i demonstracyjny. Dokładność, przydatność oraz zgodność tych treści z rzeczywistością nie są gwarantowane.</li>
+        </ol>
+  
+        <h3 class="text-lg font-semibold mt-4 mb-2">§2. Brak gwarancji jadalności i bezpieczeństwa</h3>
+        <ol class="list-decimal list-inside space-y-1">
+          <li>Operatorzy i twórcy aplikacji nie gwarantują, że prezentowane przepisy są odpowiednie do przygotowania i spożycia przez ludzi.</li>
+          <li>Nie zapewnia się, że przepisy spełniają normy zdrowotne, dietetyczne ani kulinarne.</li>
+          <li>Składniki, proporcje, techniki przygotowania oraz wartości odżywcze mogą być nieprawidłowe, niekompletne lub niezgodne z rzeczywistymi zasadami sztuki kulinarnej.</li>
+        </ol>
+  
+        <h3 class="text-lg font-semibold mt-4 mb-2">§3. Wyłączenie odpowiedzialności</h3>
+        <ol class="list-decimal list-inside space-y-1">
+          <li>Twórcy projektu <strong>NoCapCooking</strong> nie ponoszą odpowiedzialności za jakiekolwiek szkody, straty lub obrażenia powstałe w wyniku przygotowania, spożycia lub innego wykorzystania potraw przygotowanych na podstawie przepisów dostępnych w aplikacji.</li>
+          <li>Użytkownik korzysta z aplikacji oraz prezentowanych treści wyłącznie na własne ryzyko i odpowiedzialność.</li>
+          <li>Zaleca się, aby przed przygotowaniem lub spożyciem jakiejkolwiek potrawy skonsultować się z odpowiednimi źródłami kulinarnymi lub specjalistami.</li>
+        </ol>
+  
+        <p class="mt-4">W przypadku pytań lub wątpliwości dotyczących treści aplikacji prosimy o kontakt z administratorem projektu.</p>
+      </section>
+    </mat-dialog-content>
+  
+    <mat-dialog-actions align="end" class="mt-6">
+      <button mat-button class="bg-gray-600 text-white-800 font-semibold px-4 py-2 rounded hover:bg-gray-500 transition" [mat-dialog-close]="true" cdkFocusInitial>OK</button>
+    </mat-dialog-actions>
+  </div>
+  
